@@ -12,19 +12,6 @@
 /*----------------------------------function----------------------------------*/
 void EPWM_Init(void)
 {
-    EPWM_GPIO_Config();
-    EPWM_Mode_Config();    
-}
-
-
-void EPWM_GPIO_Config(void)
-{
-
-}
-
-
-void EPWM_Mode_Config(void)
-{
 	/*
 	(1)设置EPWM运行模式
 	*/
@@ -84,7 +71,6 @@ void EPWM_Mode_Config(void)
 	(5)设置EPWM刹车
 	*/
 	// EPWM_EnableFaultBrake(EPWM_BRK_ACMP0EE);			/*开启ACMP0电平刹车*/
-			
 	// EPWM_ConfigFaultBrakeLevel(EPWM_CH_0_MSK | EPWM_CH_2_MSK |EPWM_CH_4_MSK,0);
 	// EPWM_ConfigFaultBrakeLevel(EPWM_CH_1_MSK | EPWM_CH_3_MSK |EPWM_CH_5_MSK,1);
 	// EPWM_AllBrakeEnable();
@@ -120,7 +106,6 @@ void EPWM_Mode_Config(void)
 	(8)开启EPWM
 	*/		
 	EPWM_Start(EPWM_CH_0_MSK | EPWM_CH_2_MSK | EPWM_CH_4_MSK| EPWM_CH_1_MSK| EPWM_CH_3_MSK| EPWM_CH_5_MSK);
-	
 }
 
 

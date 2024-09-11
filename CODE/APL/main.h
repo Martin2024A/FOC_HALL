@@ -32,9 +32,6 @@ void SystemConfig(void);
 void SoftwareInit(void);
 void HardwareInit(void);
 void NVIC_Init(void);
-
-void UartData_Processing(void);
-void show_help(void);
 /*------------------------------------test------------------------------------*/
 
 #ifdef __cplusplus

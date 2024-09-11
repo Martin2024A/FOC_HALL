@@ -18,8 +18,6 @@ extern "C"{
 
 /*----------------------------------function----------------------------------*/
 void EPWM_Init(void);
-void EPWM_GPIO_Config(void);
-void EPWM_Mode_Config(void);
 /*------------------------------------test------------------------------------*/
 
 #ifdef __cplusplus

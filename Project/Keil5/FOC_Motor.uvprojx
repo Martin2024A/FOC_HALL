@@ -409,11 +409,6 @@
               <FilePath>..\..\CODE\FML\Source\Motor_Control.c</FilePath>
             </File>
             <File>
-              <FileName>retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\CODE\FML\Source\retarget.c</FilePath>
-            </File>
-            <File>
               <FileName>Motor_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\CODE\FML\Source\Motor_math.c</FilePath>
@@ -444,16 +439,6 @@
               <FilePath>..\..\CODE\HDL\Source\EPWM_Config.c</FilePath>
             </File>
             <File>
-              <FileName>GPIO_Config.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\CODE\HDL\Source\GPIO_Config.c</FilePath>
-            </File>
-            <File>
-              <FileName>Hall_Config.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\CODE\HDL\Source\Hall_Config.c</FilePath>
-            </File>
-            <File>
               <FileName>TIM_Config.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\CODE\HDL\Source\TIM_Config.c</FilePath>
@@ -462,6 +447,16 @@
               <FileName>UART_Config.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\CODE\HDL\Source\UART_Config.c</FilePath>
+            </File>
+            <File>
+              <FileName>Retarget_Config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\CODE\HDL\Source\Retarget_Config.c</FilePath>
+            </File>
+            <File>
+              <FileName>System_Config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\CODE\HDL\Source\System_Config.c</FilePath>
             </File>
           </Files>
         </Group>

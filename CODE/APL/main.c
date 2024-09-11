@@ -6,66 +6,72 @@
 /*----------------------------------typedef-----------------------------------*/
 
 /*----------------------------------variable----------------------------------*/
-uint32_t ADCValue = 0;
 
 /*-------------------------------------os-------------------------------------*/
-/*
 
-*/
 /*----------------------------------function----------------------------------*/
-int main(void)
+/*-----------------------------------------------------------------------------
+Function Name :	void main(void)
+Description   :	主函数主要功能是初始化，包括:
+				系统初始化--系统时钟配置，看门狗配置
+				软件初始化--初始化所有定义的变量
+				硬件初始化--初始化硬件设备配置
+				主循环扫描--看门狗喂狗，电机控制状态扫描，调试测试函数
+Input         :	无
+Output        :	无
+-------------------------------------------------------------------------------*/
+int  main(void)
 {		
-	SystemConfig();
-	// SoftwareInit();
-	HardwareInit();
-	NVIC_Init();
-	EPWM_Stop((EPWM_CH_0_MSK | EPWM_CH_1_MSK |
-	 EPWM_CH_2_MSK | EPWM_CH_3_MSK |
-	 EPWM_CH_4_MSK | EPWM_CH_5_MSK));
+	SystemConfig();    /*系统初始化*/
+	SoftwareInit();    /*软件初始化*/
+	HardwareInit();    /*硬件初始化*/
 
 	while(1)
 	{
-		// FOC_Model();
+		Motor_Control();
 		UartData_Processing();
 	}	
 }
 
-void SystemConfig(void)
-{
-	SYS_DisableIOCFGProtect();			/*关闭IOCONFIG写保护*/
-	SYS_DisableGPIO0Protect();			/*关闭GPIO0的相关寄存器写保护*/
-	SYS_DisableGPIO1Protect();			/*关闭GPIO1的相关寄存器写保护*/
-	SYS_DisableGPIO2Protect();			/*关闭GPIO2的相关寄存器写保护*/
-	SYS_DisableGPIO3Protect();			/*关闭GPIO3的相关寄存器写保护*/
-	SYS_DisableGPIO4Protect();			/*关闭GPIO4的相关寄存器写保护*/	
-	
-	SYS_ConfigHSI(SYS_CLK_HSI_48M);		/*设置内部高速时钟为48Mhz*/
-	SYS_EnableHSI();					/*开启高速时钟*/
-	SYS_ConfigAHBClock(SYS_CLK_SEL_HSI,SYS_CLK_DIV_1);	/*设置AHB时钟为高速时钟的1分频*/
-	SYS_ConfigAPBClock(AHB_CLK_DIV_1);					/*设置APB时钟为AHB时钟的1分频*/
-	SystemCoreClockUpdate();						/*刷新SystemCoreCLk、SystemAPBClock变量值*/
-}
 
+
+/*-------------------------------------------------------------------------------
+Function Name :	void SoftwareInit(void)
+Description   :	软件初始化，初始化所有定义变量
+Input         :	无
+Output		  :	无
+--------------------------------------------------------------------------------*/
 void SoftwareInit(void)
 {
+
+
 }
 
+/*--------------------------------------------------------------------------------
+Function Name :	void HardwareInit(void)
+Description   :	硬件初始化，初始化需要使用的硬件设备配置
+Input         :	无
+Output		  :	无
+--------------------------------------------------------------------------------*/
 void HardwareInit(void)
 {
-//	GPIO_Init();
-	// ADC_Init();		//母线电流
-	// CCP_Init();		//Hall
-	CCP_Capture_Mode1_Config();
+	ADC_Init();		
+	CCP_Init();
 	EPWM_Init();
-	// MC_SensorMode_IOInit();
-	// MC_SensorMode_Init();
-	MC_SensorMode_Init();
-	// TIM_Init();		//定时中断
+	TIMER1_Init();		//定时中断
 	UART_Init();
 }
 
+
+/*--------------------------------------------------------------------------------
+Function Name :	void NVIC_Init(void)
+Description   :	中断初始化，优先级设置
+Input         :	无
+Output		  :	无
+--------------------------------------------------------------------------------*/
 void NVIC_Init(void)
 {
+	/*修改，FOC高频、中频速度环、低频霍尔，设置优先级*/
 //Hall GPIO 
     NVIC_SetPriority(GPIO3_IRQn,1); 
     NVIC_EnableIRQ(GPIO3_IRQn); 
@@ -76,76 +82,6 @@ void NVIC_Init(void)
 	NVIC_EnableIRQ(ADC1_IRQn);         //设置优先级
 	NVIC_SetPriority(ADC1_IRQn,2);		//优先级0~3， 0最高、3最低	
 }
-
-
-void UartData_Processing(void)
-{
-//	static uint8_t showflag = 1;
-//	int dec_temp=0;
-   int speed_temp=0;
-	char okCmd = 0;
-
-	if(Serial_GetRxFlag() == 1)
-	{
-		if (U_ReceiveData[0] == 's')
-		{
-			if(U_ReceiveData[1] == '0')
-			{
-					printf("\n\rMotor_Ctrl.Motor_status = MOTOR_STOP\n\r");
-					okCmd = 1;
-					EPWM_Stop((EPWM_CH_0_MSK | EPWM_CH_1_MSK |
-						 EPWM_CH_2_MSK | EPWM_CH_3_MSK |
-						 EPWM_CH_4_MSK | EPWM_CH_5_MSK));
-				}
-						if(U_ReceiveData[1] == '1')
-			{
-						EPWM_Start((EPWM_CH_0_MSK | EPWM_CH_1_MSK |
-						 EPWM_CH_2_MSK | EPWM_CH_3_MSK |
-						 EPWM_CH_4_MSK | EPWM_CH_5_MSK));
-
-					printf("\n\rMotor_Ctrl.Motor_status = MOTOR_STARTUP\n\r");
-					okCmd = 1;
-				}
-			}
-		else if(U_ReceiveData[0] == 'v' || U_ReceiveData[0] == 'V')
-		{
-			if(U_ReceiveData[1] == ' ')
-			{
-				speed_temp = atoi((char const *)U_ReceiveData+2);
-				if(speed_temp >= 0 && speed_temp <= 100)
-				{
-					Stat_Volt_q_d.qV_Component2 = speed_temp*250;
-
-					printf("\n\r速度: %d\n\r", speed_temp);
-					okCmd = 1;
-				}
-			}
-		}
-//		if(okCmd != 1)
-//		{
-//			printf("\n\r 输入有误，请重新输入...\n\r");
-//			show_help();
-//		}
-		}
-
-
-}
-
-
-void EPWM_IRQHandler(void)
-{
-	if( EPWM_GetPeriodIntFlag(EPWM0))
-	{
-		FOC_Model();
-		EPWM_ClearPeriodIntFlag(EPWM0);
-	}	
-
-}
-
-
-
-
-
 /*------------------------------------test------------------------------------*/
 
 
