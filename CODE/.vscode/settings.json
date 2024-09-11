@@ -1,0 +1,20 @@
+{
+    "files.associations": {
+        "gpio.h": "c",
+        "hall.h": "c",
+        "cms32m55xx.h": "c",
+        "uart_debug.h": "c",
+        "gpio_config.h": "c",
+        "motor_control.h": "c",
+        "hall_config.h": "c",
+        "main.h": "c",
+        "tim_config.h": "c",
+        "motor_math.h": "c",
+        "motor_svpwm.h": "c",
+        "epwm_config.h": "c",
+        "motor_type.h": "c",
+        "ccp_config.h": "c",
+        "hall_commutation.h": "c",
+        "uart_config.h": "c"
+    }
+}

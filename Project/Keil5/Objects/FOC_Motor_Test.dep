@@ -1,0 +1,797 @@
+Dependencies for Project 'FOC_Motor', Target 'Test': (DO NOT MODIFY !)
+CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
+F (..\..\CODE\APL\isr.c)(0x66DEB032)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\isr.o --omf_browse .\objects\isr.crf --depend .\objects\isr.d)
+I (..\..\CODE\HAL\CORE\Include\cms32m55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+I (..\..\CODE\FML\Include\Motor_control.h)(0x66DFE932)
+I (..\..\CODE\FML\Include\Motor_SVPWM.h)(0x66DFE5A5)
+I (..\..\CODE\FML\Include\Motor_type.h)(0x66D9546D)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (..\..\CODE\HDL\Include\EPWM_Config.h)(0x66CED20B)
+I (..\..\CODE\FML\Include\Motor_math.h)(0x66D95D65)
+I (..\..\CODE\HDL\Include\TIM_Config.h)(0x66D65F4A)
+F (..\..\CODE\APL\main.c)(0x66DFEA71)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (..\..\CODE\APL\main.h)(0x66D95E03)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\math.h)(0x60252378)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdlib.h)(0x60252374)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\string.h)(0x6025237E)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+I (..\..\CODE\HDL\Include\UART_Config.h)(0x66D112B1)
+I (..\..\CODE\FML\Include\Motor_Control.h)(0x66DFE932)
+I (..\..\CODE\FML\Include\Motor_SVPWM.h)(0x66DFE5A5)
+I (..\..\CODE\FML\Include\Motor_type.h)(0x66D9546D)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (..\..\CODE\HDL\Include\EPWM_Config.h)(0x66CED20B)
+I (..\..\CODE\FML\Include\Motor_math.h)(0x66D95D65)
+F (..\..\CODE\FML\Source\Hall_Commutation.c)(0x66DFD4BC)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\hall_commutation.o --omf_browse .\objects\hall_commutation.crf --depend .\objects\hall_commutation.d)
+I (..\..\CODE\FML\Include\Hall_Commutation.h)(0x66DFD4CF)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\FML\Source\Motor_Control.c)(0x66DFEDBC)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\motor_control.o --omf_browse .\objects\motor_control.crf --depend .\objects\motor_control.d)
+I (..\..\CODE\FML\Include\Motor_Control.h)(0x66DFE932)
+I (..\..\CODE\FML\Include\Motor_SVPWM.h)(0x66DFE5A5)
+I (..\..\CODE\FML\Include\Motor_type.h)(0x66D9546D)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (..\..\CODE\HDL\Include\EPWM_Config.h)(0x66CED20B)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+I (..\..\CODE\FML\Include\Motor_math.h)(0x66D95D65)
+F (..\..\CODE\FML\Source\retarget.c)(0x66D01C30)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\retarget.o --omf_browse .\objects\retarget.crf --depend .\objects\retarget.d)
+I (..\..\CODE\HAL\CORE\Include\cms32m55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
+F (..\..\CODE\FML\Source\Motor_math.c)(0x66D9137E)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\motor_math.o --omf_browse .\objects\motor_math.crf --depend .\objects\motor_math.d)
+I (..\..\CODE\FML\Include\Motor_math.h)(0x66D95D65)
+I (..\..\CODE\FML\Include\Motor_type.h)(0x66D9546D)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+F (..\..\CODE\FML\Source\Motor_SVPWM.c)(0x66DFA55F)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\motor_svpwm.o --omf_browse .\objects\motor_svpwm.crf --depend .\objects\motor_svpwm.d)
+I (..\..\CODE\FML\Include\Motor_SVPWM.h)(0x66DFE5A5)
+I (..\..\CODE\FML\Include\Motor_type.h)(0x66D9546D)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (..\..\CODE\HDL\Include\EPWM_Config.h)(0x66CED20B)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HDL\Source\ADC_Config.c)(0x66D5733B)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\adc_config.o --omf_browse .\objects\adc_config.crf --depend .\objects\adc_config.d)
+I (..\..\CODE\HDL\Include\ADC_Config.h)(0x66D15E71)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HDL\Source\CCP_Config.c)(0x66CFE352)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\ccp_config.o --omf_browse .\objects\ccp_config.crf --depend .\objects\ccp_config.d)
+I (..\..\CODE\HDL\Include\CCP_Config.h)(0x66CFE344)
+F (..\..\CODE\HDL\Source\EPWM_Config.c)(0x66DFE5A7)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\epwm_config.o --omf_browse .\objects\epwm_config.crf --depend .\objects\epwm_config.d)
+I (..\..\CODE\HDL\Include\EPWM_Config.h)(0x66CED20B)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HDL\Source\GPIO_Config.c)(0x66D013E0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\gpio_config.o --omf_browse .\objects\gpio_config.crf --depend .\objects\gpio_config.d)
+F (..\..\CODE\HDL\Source\Hall_Config.c)(0x66D11FD9)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\hall_config.o --omf_browse .\objects\hall_config.crf --depend .\objects\hall_config.d)
+I (..\..\CODE\HDL\Include\Hall_Config.h)(0x66D11EB2)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HDL\Source\TIM_Config.c)(0x66DFAB2E)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\tim_config.o --omf_browse .\objects\tim_config.crf --depend .\objects\tim_config.d)
+I (..\..\CODE\HDL\Include\TIM_Config.h)(0x66D65F4A)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HDL\Source\UART_Config.c)(0x66D134FF)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\uart_config.o --omf_browse .\objects\uart_config.crf --depend .\objects\uart_config.d)
+I (..\..\CODE\HDL\Include\UART_Config.h)(0x66D112B1)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\CORE\Source\system_CMS32M55xx.c)(0x642251EE)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\system_cms32m55xx.o --omf_browse .\objects\system_cms32m55xx.crf --depend .\objects\system_cms32m55xx.d)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\CORE\Source\ARM\startup_CMS32M55xx.s)(0x642251EE)(--cpu Cortex-M0 -g --apcs=interwork --pd "__MICROLIB SETA 1"-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include--pd "__UVISION_VERSION SETA 536" --pd "CMS32M55xx SETA 1"--list .\listings\startup_cms32m55xx.lst --xref -o .\objects\startup_cms32m55xx.o --depend .\objects\startup_cms32m55xx.d)
+F (..\..\CODE\HAL\FWLIB\src\acmp.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\acmp.o --omf_browse .\objects\acmp.crf --depend .\objects\acmp.d)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\adc0.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\adc0.o --omf_browse .\objects\adc0.crf --depend .\objects\adc0.d)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\adc1.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\adc1.o --omf_browse .\objects\adc1.crf --depend .\objects\adc1.d)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\ccp.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\ccp.o --omf_browse .\objects\ccp.crf --depend .\objects\ccp.d)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\crc.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\crc.o --omf_browse .\objects\crc.crf --depend .\objects\crc.d)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\epwm.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\epwm.o --omf_browse .\objects\epwm.crf --depend .\objects\epwm.d)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\fmc.c)(0x64C23288)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\fmc.o --omf_browse .\objects\fmc.crf --depend .\objects\fmc.d)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\gpio.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\gpio.o --omf_browse .\objects\gpio.crf --depend .\objects\gpio.d)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\hwdiv.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\hwdiv.o --omf_browse .\objects\hwdiv.crf --depend .\objects\hwdiv.d)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\i2c.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\i2c.o --omf_browse .\objects\i2c.crf --depend .\objects\i2c.d)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\opa.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\opa.o --omf_browse .\objects\opa.crf --depend .\objects\opa.d)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\pga.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\pga.o --omf_browse .\objects\pga.crf --depend .\objects\pga.d)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\ssp.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\ssp.o --omf_browse .\objects\ssp.crf --depend .\objects\ssp.d)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\system.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\system.o --omf_browse .\objects\system.crf --depend .\objects\system.d)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\timer.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\timer.o --omf_browse .\objects\timer.crf --depend .\objects\timer.d)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\uart.c)(0x66CFE671)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\uart.o --omf_browse .\objects\uart.crf --depend .\objects\uart.d)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\wdt.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\wdt.o --omf_browse .\objects\wdt.crf --depend .\objects\wdt.d)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
+F (..\..\CODE\HAL\FWLIB\src\wwdt.c)(0x642251F0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\wwdt.o --omf_browse .\objects\wwdt.crf --depend .\objects\wwdt.d)
+I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66CC2675)
+I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
+I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmInstr.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\core_cmFunc.h)(0x642251F0)
+I (..\..\CODE\HAL\CORE\Include\system_CMS32M55xx.h)(0x64C23198)
+I (..\..\CODE\HAL\FWLIB\inc\system.h)(0x66CC18F0)
+I (..\..\CODE\HAL\FWLIB\inc\gpio.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\acmp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc0.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ccp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\crc.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\epwm.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\hwdiv.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\i2c.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\opa.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\pga.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\ssp.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\timer.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
+I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
