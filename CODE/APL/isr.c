@@ -2,6 +2,9 @@
 #include "cms32m55xx.h"
 #include "Motor_control.h"
 #include "TIM_Config.h"
+#include "Hall_Commutation.h"
+#include "UART_Config.h"
+#include "stdio.h"
 /*-----------------------------------macro------------------------------------*/
 
 /*----------------------------------typedef-----------------------------------*/
@@ -142,6 +145,7 @@ void GPIO4_IRQHandler(void)
 ****************************************************************************/
 void CCP_IRQHandler(void)
 {
+	uint8_t halldata;
 	if(CCP_GetOverflowIntFlag(CCP1))
 	{
 		// CaptureCount = 0;						/*去掉在两次捕获中间出现计数溢出的情况*/
@@ -149,7 +153,7 @@ void CCP_IRQHandler(void)
 		CCP_ClearOverflowIntFlag(CCP1);
 		
 	}	
-	if(CCP_GetCAPMode1IntFlag(CAP0))
+	if(CCP_GetCAPMode1IntFlag(CAP0)||CCP_GetCAPMode1IntFlag(CAP1)||CCP_GetCAPMode1IntFlag(CAP2))
 	{		
 	
 		// if(CaptureCount ==0)
@@ -163,8 +167,11 @@ void CCP_IRQHandler(void)
 		// }
 		// CaptureCount ++;		
 	
-		MC_SensorMode_HallChange();
+		halldata = get_hallValue();
+		printf(" %d \n\r",halldata);
 		CCP_ClearCAPMode1IntFlag(CAP0);
+		CCP_ClearCAPMode1IntFlag(CAP1);
+		CCP_ClearCAPMode1IntFlag(CAP2);
 	}
 }
 /****************************************************************************

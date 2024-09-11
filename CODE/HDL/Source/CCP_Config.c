@@ -21,28 +21,34 @@ void CCP_Init(void)
 	/*
 	(2)设置CCP运行模式
 	*/
-	CCP_EnableCAPMode1();								/*设置CCP模块工作模式为捕获模式1*/
+	CCP_EnableCAPMode1();									/*设置CCP模块工作模式为捕获模式1*/
 	CCP_ConfigCAPMode1(CAP0,CCP_CAP_MODE1_BOTH_EDGE);		/*设置捕获通道为CAP0，上升沿捕获*/
+	CCP_ConfigCAPMode1(CAP1,CCP_CAP_MODE1_BOTH_EDGE);		
+	CCP_ConfigCAPMode1(CAP2,CCP_CAP_MODE1_BOTH_EDGE);		
 
 	/*
 	(3)设置CCP捕获通道
 	*/
 	CCP_SelCAPMode1Channel(CAP0,ECAP10);				/*CAP0通道选择连接外部ECAP02接口*/
 	SYS_SET_IOCFG(IOP31CFG,SYS_IOCFG_P31_ECAP10);		/*设置P15为ECAP02*/
-	CCP_SelCAPMode1Channel(CAP0,ECAP11);
+
+	CCP_SelCAPMode1Channel(CAP1,ECAP11);
 	SYS_SET_IOCFG(IOP32CFG,SYS_IOCFG_P32_ECAP11);
-	CCP_SelCAPMode1Channel(CAP0,ECAP12);
+
+	CCP_SelCAPMode1Channel(CAP2,ECAP12);
 	SYS_SET_IOCFG(IOP34CFG,SYS_IOCFG_P34_GECAP12);     //宏定义名称写错了？
 	/*
 	(4)设置CCP捕获中断
 	*/		
 	CCP_EnableOverflowInt(CCP1);					   /*开启CCP1溢出中断*/
 	CCP_EnableCAPMode1Int(CAP0);					   /*开启CAP0通道捕获中断*/
-	NVIC_EnableIRQ(CCP_IRQn);	
+	CCP_EnableCAPMode1Int(CAP1);					   /*开启CAP1通道捕获中断*/
+	CCP_EnableCAPMode1Int(CAP2);					   /*开启CAP2通道捕获中断*/
+		
 	/*
 	(5)设置CCP 中断优先级
 	*/	
-	NVIC_SetPriority(CCP_IRQn,3);					/*优先级0~3， 0最高、3最低*/		
+	
 	/*
 	(6)开启CCP模块
 	*/	

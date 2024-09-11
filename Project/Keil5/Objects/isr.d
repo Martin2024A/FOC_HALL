@@ -31,3 +31,6 @@
 .\objects\isr.o: ..\..\CODE\HDL\Include\EPWM_Config.h
 .\objects\isr.o: ..\..\CODE\FML\Include\Motor_math.h
 .\objects\isr.o: ..\..\CODE\HDL\Include\TIM_Config.h
+.\objects\isr.o: ..\..\CODE\FML\Include\Hall_Commutation.h
+.\objects\isr.o: ..\..\CODE\HDL\Include\UART_Config.h
+.\objects\isr.o: D:\Tool\MDK\Core\ARM\ARMCC\Bin\..\include\stdio.h

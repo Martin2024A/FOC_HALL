@@ -418,6 +418,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\CODE\FML\Source\Motor_SVPWM.c</FilePath>
             </File>
+            <File>
+              <FileName>Motor_PID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\CODE\FML\Source\Motor_PID.c</FilePath>
+            </File>
+            <File>
+              <FileName>UART_Process.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\CODE\FML\Source\UART_Process.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -449,14 +459,14 @@
               <FilePath>..\..\CODE\HDL\Source\UART_Config.c</FilePath>
             </File>
             <File>
-              <FileName>Retarget_Config.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\CODE\HDL\Source\Retarget_Config.c</FilePath>
-            </File>
-            <File>
               <FileName>System_Config.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\CODE\HDL\Source\System_Config.c</FilePath>
+            </File>
+            <File>
+              <FileName>retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\CODE\HDL\Source\retarget.c</FilePath>
             </File>
           </Files>
         </Group>

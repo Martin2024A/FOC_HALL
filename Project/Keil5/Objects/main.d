@@ -36,3 +36,5 @@
 .\objects\main.o: D:\Tool\MDK\Core\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\main.o: ..\..\CODE\HDL\Include\EPWM_Config.h
 .\objects\main.o: ..\..\CODE\FML\Include\Motor_math.h
+.\objects\main.o: ..\..\CODE\HDL\Include\CCP_Config.h
+.\objects\main.o: ..\..\CODE\FML\Include\Hall_Commutation.h

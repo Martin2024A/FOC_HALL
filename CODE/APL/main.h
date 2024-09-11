@@ -28,7 +28,6 @@ extern "C"{
 /*-------------------------------------os-------------------------------------*/
 
 /*----------------------------------function----------------------------------*/
-void SystemConfig(void);
 void SoftwareInit(void);
 void HardwareInit(void);
 void NVIC_Init(void);

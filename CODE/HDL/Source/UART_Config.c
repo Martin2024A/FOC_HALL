@@ -129,6 +129,5 @@ void UART1_IRQHandler(void)
 		//			UART_EnableFIFO(UART0,FIFO_L0_1BYTE, FIFO_L1_4BYTE, FIFO_RST_DIS, FIFO_RST_EN);	/*Çå³ýµô½ÓÊÕFIFO*/ 			
 			break;		
 	}
-	
 }
 /*------------------------------------test------------------------------------*/

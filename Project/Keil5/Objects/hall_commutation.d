@@ -25,3 +25,5 @@
 .\objects\hall_commutation.o: ..\..\CODE\HAL\FWLIB\inc\wdt.h
 .\objects\hall_commutation.o: ..\..\CODE\HAL\FWLIB\inc\wwdt.h
 .\objects\hall_commutation.o: ..\..\CODE\HAL\FWLIB\inc\fmc.h
+.\objects\hall_commutation.o: ..\..\CODE\HDL\Include\UART_Config.h
+.\objects\hall_commutation.o: D:\Tool\MDK\Core\ARM\ARMCC\Bin\..\include\stdbool.h

@@ -22,14 +22,14 @@ Output        :	无
 -------------------------------------------------------------------------------*/
 int  main(void)
 {		
-	SystemConfig();    /*系统初始化*/
+	System_Init();    /*系统初始化*/
 	SoftwareInit();    /*软件初始化*/
 	HardwareInit();    /*硬件初始化*/
 
 	while(1)
 	{
-		Motor_Control();
-		UartData_Processing();
+		// Motor_Control();
+		// UartData_Processing();
 	}	
 }
 
@@ -55,10 +55,10 @@ Output		  :	无
 --------------------------------------------------------------------------------*/
 void HardwareInit(void)
 {
-	ADC_Init();		
+	// ADC_Init();		
 	CCP_Init();
-	EPWM_Init();
-	TIMER1_Init();		//定时中断
+	// EPWM_Init();
+	// TIMER1_Init();		//定时中断
 	UART_Init();
 }
 
@@ -72,9 +72,9 @@ Output		  :	无
 void NVIC_Init(void)
 {
 	/*修改，FOC高频、中频速度环、低频霍尔，设置优先级*/
-//Hall GPIO 
-    NVIC_SetPriority(GPIO3_IRQn,1); 
-    NVIC_EnableIRQ(GPIO3_IRQn); 
+//Hall 
+    NVIC_SetPriority(CCP_IRQn,0);		/*优先级0~3， 0最高、3最低*/		
+    NVIC_EnableIRQ(CCP_IRQn);
 //UART1
 	NVIC_SetPriority(UART1_IRQn,3); 
     NVIC_EnableIRQ(UART1_IRQn); 
