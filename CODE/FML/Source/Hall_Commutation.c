@@ -13,9 +13,13 @@ uint8_t hall_index[6]={1,5,4,6,2,3};
 uint8_t sectorTableOfHall[7]={0,5,3,4,1,0,2};
 Motor_Sensor_t strSensor;
 /*-------------------------------------os-------------------------------------*/
-
+HALL_Struct   Hall1 = {0};
 /*----------------------------------function----------------------------------*/
-
+/*
+高频任务：ADC采样完成，触发中断。FOC
+中频任务：更新计算
+低频任务：霍尔捕获中断
+*/
 
 uint8_t Get_HallValue(void)
 {
@@ -36,793 +40,400 @@ uint8_t Get_HallValue(void)
 	return hallData;
 }
 
-/* Private defines -----------------------------------------------------------*/
+/**
+ * @brief   更新电机的电角速度和机械角速度，将整型速度值/每foc执行周期转化为rad/s
+ * @param   dpp 整型，指的是整型速度值/每foc执行周期
+ * @param   hall 霍尔传感器对象
+ * @return
+ */
+float  hall_get_Speed(HALL_Struct* hall)
+{
+    /*dpp为整型速度值/每foc执行周期 ，需要后期转化为rad/s*/
+    /*所以高频任务的执行周期和65535和2PI需要结合实际弄出个乘积因子完成单位转化过程*/
+    static float K=(float)(N2_PI/65536/(FOC_PERIOD/1000000.0f));
+	
+    hall->omega_inter=((float)(K*hall->dpp));
+	
+    return hall->omega_inter;
+}
+/**
+ * @brief   插值法电角度估算函数(用于FOC高频中断任务中)
+ * @param   hall 霍尔传感器指针
+ * @funtion 实现了插值法捕获速度值;该方式使用-65536~65536表示-2pi到2pi
+ */
+float hall_positionEst(HALL_Struct *hall)
+{
+      static float theta_k=N2_PI/65536;
 
-/* Lower threshold to reques a decrease of clock prescaler */
-#define LOW_RES_THRESHOLD   ((uint16_t)0x5500u)
+      hall->refer_theta+=hall->dpp;//<refer_theta就是文中的θref(在代码中仅有整型形式)
+      if(hall->refer_theta>65536L)
+      {
+          hall->refer_theta-=65536L;
+      }
+      else if(hall->refer_theta<0)
+      {
+          hall->refer_theta+=65536L;
+      }
+      hall->theta+=(hall->dpp+hall->comp_dpp);//<就是文中的θuse的整型形式
+      if(hall->theta>65536L)
+     {
+         hall->theta-=65536L;
+     }
+     else if(hall->theta<0)
+     {
+         hall->theta+=65536L;
+     }
+		 
+		 hall->theta_inter=(float)(hall->theta*theta_k);//<theta_inter插值法估算的电角度，就是文中的θuse浮点形式
+     return hall->theta_inter;
+}
 
-#define HALL_COUNTER_RESET  ((uint16_t) 0u)
-
-#define S16_120_PHASE_SHIFT (int16_t)(65536/3)
-#define S16_60_PHASE_SHIFT  (int16_t)(65536/6)
-
-#define STATE_0 (uint8_t)0
-#define STATE_1 (uint8_t)1
-#define STATE_2 (uint8_t)2
-#define STATE_3 (uint8_t)3
-#define STATE_4 (uint8_t)4
-#define STATE_5 (uint8_t)5
-#define STATE_6 (uint8_t)6
-#define STATE_7 (uint8_t)7
-
-#define NEGATIVE          (int8_t)-1
-#define POSITIVE          (int8_t)1
-#define NEGATIVE_SWAP     (int8_t)-2
-#define POSITIVE_SWAP     (int8_t)2
-
-/* With digit-per-PWM unit (here 2*PI rad = 0xFFFF): */
-#define HALL_MAX_PSEUDO_SPEED        ((int16_t)0x7FFF)
-
-#define CCER_CC1E_Set               ((uint16_t)0x0001)
-#define CCER_CC1E_Reset             ((uint16_t)0xFFFE)
-
-static void HALL_Init_Electrical_Angle(HALL_Handle_t *pHandle);
-static int16_t HALL_CalcAvrgElSpeedDpp(HALL_Handle_t *pHandle);
 
 /**
-  * @brief  It initializes the hardware peripherals (TIMx, GPIO and NVIC) 
-            required for the speed position sensor management using HALL 
-            sensors.
-  * @param  pHandle: handler of the current instance of the hall_speed_pos_fdbk component
-  * @retval none
+ * @brief            霍尔捕获(中断)低频任务（频率不定，所以在本函数还对霍尔中断频率做了计算）
+ * @param    htim    霍尔中断捕获所使用的定时器指针
+ * @function         实现了插值法捕获速度值;该方式使用-65536~65536表示-2pi到2pi
+ *	                 方案采用扇区强制校准+插值补偿	
+ *                   本部分函数实现了扇区角度强制校准+中间速度缓存变量计算+平均速度计算
+                    
+                     此处以120°电角度放置的霍尔位置传感器为例
+					 LF：low frequency低频
+ * @warnings         ！！！注意：本函数配合中频任务共同运行才能完成一次完整的速度估计
+                     所以，完整电角度估算与速度估算流程是共同混杂在foc高频中断+速度更新中频任务+霍尔中断低频任务中的
+ */
+#define TIM_HALL_CK_INT				(48000000UL)          //用户自定义，指霍尔捕获所用的定时器外设主频，F4芯片一般除TIM1/TIM8，其余为84M
+#define TIM_HALL_REFER_CAP          (25000UL)
+
+
+#define S16_60_PHASE_SHIFT       	(10923UL)
+#define S16_120_PHASE_SHIFT      	(21845UL)
+#define S16_180_PHASE_SHIFT      	(32768UL)
+#define S16_240_PHASE_SHIFT      	(43691UL)
+#define S16_300_PHASE_SHIFT      	(54613UL)
+
+#define HALL_FW                  	(+1L)                   //霍尔周期正转
+#define HALL_RV                  	(-1L)                   //霍尔周期反转
+///<120°电角度放置时的霍尔真值
+#define HALL_5                  	(5UL)
+#define HALL_1                  	(1UL)
+#define HALL_3                  	(3UL)
+#define HALL_2                  	(2UL)
+#define HALL_6                  	(6UL)
+#define HALL_4                  	(4UL)
+    
+
+void hall_processLF_IT(HALL_Struct *hall)
+{
+	static uint16_t  ccr1=0;
+  static int32_t   dpp=0;
+    
+    //<产生霍尔跳变，必定同时产生更新标记(先检测)和捕获标记(后检测)
+    //<堵转只产生更新标记，不会产生捕获标记，因为霍尔真值没有变化
+  /*
+	if(__HAL_TIM_GET_FLAG(htim,TIM_FLAG_UPDATE))
+	{
+		///<没有霍尔跳变却发生了更新中断，说明速度太慢或堵转，计数器溢出更新
+       if(__HAL_TIM_GET_FLAG(htim, TIM_FLAG_CC1)!= SET)
+       {
+			hall->overcount++;
+			if(hall->overcount>500U)//<用户自定义堵转时间间隔，这里选500.但不一定非要500，具体情况具体分析，读者根据自己的需求来选堵转阈值。
+			{
+				hall->locked=1;
+				hall->buffer[0]=0;
+				hall->buffer[1]=0;
+				hall->buffer[2]=0;
+				hall->buffer[3]=0;
+				hall->buffer[4]=0;
+				hall->buffer[5]=0;
+				
+				hall->dpp_sum=0;
+				hall->avg_dpp=0;
+				motor1.state=MOTOR_STOP;//<电机已经堵转，初始化所有值并标记当前为电机停运状态
+			}
+       }	
+		__HAL_TIM_CLEAR_FLAG(htim,TIM_FLAG_UPDATE);
+	}
   */
-void HALL_Init(HALL_Handle_t *pHandle)
-{
+	///<发生了霍尔跳变，捕获当前霍尔真值，并进行相应操作
+	if(__HAL_TIM_GET_FLAG(htim,TIM_FLAG_CC1))
+	{
+		hall->last_state=hall->state;//<保存上次的霍尔真值
+    hall->state=Get_HallValue();
+		
+    	/**********************计算溢出期间的计数值 ************************/
+   		/*************************CCR1捕获到值 ****************************/
+		ccr1=htim->Instance->CCR1;
+    hall->cap=(hall->overcount*0x10000L)+ccr1;
+   		/********因为霍尔捕获存在硬件误差，根据STM32的定时器更新特性做速度适应处理********/
+   		/*当然不做预分频更新处理，也不影响算法运行，若读者技术水平较弱，入门还请略过此步骤否则会适得其反*/
+   		/*****笔者的目的是为了在不同速度下，其预分频下捕捉到的CCRx值都在25000左右(满值为65535嘛)*****/
+   		/*这个时候呢，需要根据不同速度，动态调整预分频值，使得CCRx稳定在一个较大值，使硬件误差最小化*/
+   		/*****************************上文图片中默认配置了预分频为128-1*****************************/
+   		/*因为STM32的预分频值更新使用了影子功能，预分频更新值与计算f_HALL实际用到的分频值，还请参考笔者代码*/
+    	/*
+      if(hall->overcount>0)     ///<速度过慢,但预分频值过低
+    	{
+			hall->prescaler=htim->Instance->PSC+1;
+			if(hall->RatioInc!=0) ///<RatioInc预分频值增加标志位
+			{
+				hall->overcount=0;
+				hall->RatioInc=0;	
+			}
+			else
+		  	{
+				if(htim->Instance->PSC<65535)	
+				{
+					__HAL_TIM_SET_PRESCALER(htim,htim->Instance->PSC+1);
+					hall->RatioInc=1;	
+				}
+			}	
+   		 }
+    	else                       ///<速度过快,但预分频值过高
+    	{
+			if(hall->RatioDec!=0) ///<RatioDec预分频值减少标志位
+			{
+				hall->prescaler=htim->Instance->PSC+2;
+				hall->RatioDec=0;	
+			}
+			else
+		  	{
+				hall->prescaler=htim->Instance->PSC+1;
+				if(ccr1<TIM_HALL_REFER_CAP)
+				{
+					if(htim->Instance->PSC>0)
+					{
+						__HAL_TIM_SET_PRESCALER(htim,htim->Instance->PSC-1);
+						hall->RatioDec=1;	
+					}
+			    }		
+		    }    
+   		}
+		*/
+    /*******************************!!!校准********************************/
+    ///正反转相同位置，同一霍尔真值，但电角度实际是相差60°的
+    ///offset_theta就是上文中提到的γ角
+	switch (hall->state)
+    {
+      case HALL_5:
+      {
+        if(hall->last_state==HALL_1)
+        {
+          	hall->direction=HALL_FW;//<refer_theta就是上文的θref
+          	hall->refer_theta=hall->offset_theta+S16_240_PHASE_SHIFT;
+			      hall->hall_theta=hall->offset_theta+S16_240_PHASE_SHIFT;
+        }
+        else if(hall->last_state==HALL_4)
+        {
+          	hall->direction=HALL_RV;
+          	hall->refer_theta = hall->offset_theta+S16_300_PHASE_SHIFT;
+			      hall->hall_theta= hall->offset_theta+S16_300_PHASE_SHIFT;
+        }
+		else
+			return;
+        break;
+	  }
+      case HALL_1:
+      {
+        if(hall->last_state==HALL_3)
+        {
+          	hall->direction=HALL_FW;
+          	hall->refer_theta = hall->offset_theta+S16_180_PHASE_SHIFT;
+			hall->hall_theta= hall->offset_theta+S16_180_PHASE_SHIFT;
+        }
+        else if(hall->last_state==HALL_5)
+        {
+          	hall->direction=HALL_RV;
+          	hall->refer_theta = hall->offset_theta+S16_240_PHASE_SHIFT;
+			hall->hall_theta=hall->offset_theta+S16_240_PHASE_SHIFT;
+        }
+		else
+			return;
+        break;
+      }
+       case HALL_3:
+       {
+        if(hall->last_state==HALL_2)
+        {
+          	hall->direction=HALL_FW;
+          	hall->refer_theta = hall->offset_theta+S16_120_PHASE_SHIFT;
+			hall->hall_theta= hall->offset_theta+S16_120_PHASE_SHIFT;
+        }
+        else if(hall->last_state==HALL_1)
+        {
+          	hall->direction=HALL_RV;
+          	hall->refer_theta = hall->offset_theta+S16_180_PHASE_SHIFT;
+			hall->hall_theta= hall->offset_theta+S16_180_PHASE_SHIFT;
+        }
+		else
+			return;
+        break;
+       }
+       case HALL_2:
+       {
+         if(hall->last_state==HALL_6)
+         {
+           	hall->direction=HALL_FW;
+           	hall->refer_theta = hall->offset_theta+S16_60_PHASE_SHIFT;
+			hall->hall_theta=hall->offset_theta+S16_60_PHASE_SHIFT;
+         }
+         else if(hall->last_state==HALL_3)
+         {
+           	hall->direction=HALL_RV;
+           	hall->refer_theta = hall->offset_theta+S16_120_PHASE_SHIFT;
+			hall->hall_theta= hall->offset_theta+S16_120_PHASE_SHIFT;
+         }
+		 else
+			return;
+         break;
+	   }
+       case HALL_6:
+       {
+         if(hall->last_state==HALL_4)
+         {
+           	hall->direction=HALL_FW;
+           	hall->refer_theta = hall->offset_theta;
+			hall->hall_theta= hall->offset_theta;
+         }
+         else if(hall->last_state==HALL_2)
+         {
+           	hall->direction=HALL_RV;
+           	hall->refer_theta = hall->offset_theta+S16_60_PHASE_SHIFT;
+			hall->hall_theta= hall->offset_theta+S16_60_PHASE_SHIFT;
+         }
+		 else
+			return;
+         break;
+       }
+        case HALL_4:
+        {
+           if(hall->last_state==HALL_5)
+          {
+             	hall->direction=HALL_FW;
+             	hall->refer_theta = hall->offset_theta+S16_300_PHASE_SHIFT;
+				hall->hall_theta=hall->offset_theta+S16_300_PHASE_SHIFT;
+          }
+          else if(hall->last_state==HALL_6)
+          {
+             	hall->direction=HALL_RV;
+             	hall->refer_theta = hall->offset_theta;
+				hall->hall_theta= hall->offset_theta;
+          }
+		 else
+				return;
+         break;
+        }
+     }
+    	/*****************************校准 End********************************/
+		
+		/*************************电角度估算参数迭代 ****************************/
+		if(hall->startup!=0)
+		{
+			//电机启动期间速度计算（启动时候六个扇区都没有填满值，启动前6次有多少个数据就除多少个）
+			hall->dpp_sum-=hall->buffer[hall->buffer_index];
+			hall->f_hall=(TIM_HALL_CK_INT/(hall->prescaler*hall->cap));
+			dpp=(10923UL*hall->f_hall/hall->f_foc)*hall->direction;///<10923UL是60°弧度的整型定标
+			hall->buffer[hall->buffer_index]=dpp;
+			hall->dpp_sum+=hall->buffer[hall->buffer_index];
+			hall->buffer_index++;
+			hall->avg_dpp=(hall->dpp_sum/hall->buffer_index);	
+			if(hall->buffer_index>=WBuffer_MAX_SIZE)//<WBuffer_MAX_SIZE此处为6
+			{
+				hall->startup=0;//<清除电机启动标志位
+				hall->buffer_index=0;
+			}
+		}
+		else
+		{
+			///滑动均值滤波（完成启动，缓存区都有6个数据，往后都除以6求平均）
+			hall->dpp_sum-=hall->buffer[hall->buffer_index];
+			hall->f_hall=(TIM_HALL_CK_INT/(hall->prescaler*hall->cap));
+			dpp=(10923UL*hall->f_hall/hall->f_foc)*hall->direction;
+			hall->buffer[hall->buffer_index]=dpp;
+			hall->dpp_sum+=hall->buffer[hall->buffer_index];
+			hall->buffer_index++;
+			if(hall->buffer_index>=WBuffer_MAX_SIZE)
+			{
+				hall->buffer_index=0;
+			}
+			hall->avg_dpp=(hall->dpp_sum/WBuffer_MAX_SIZE);		
+		}
+        /*************************电角度估算参数迭代 End************************/
+		__HAL_TIM_CLEAR_FLAG(htim,TIM_FLAG_CC1);
+	}
+}
 
-  
-  uint16_t hMinReliableElSpeed01Hz = pHandle->_Super.hMinReliableMecSpeed01Hz *
-    pHandle->_Super.bElToMecRatio;
-  uint16_t hMaxReliableElSpeed01Hz = pHandle->_Super.hMaxReliableMecSpeed01Hz *
-     pHandle->_Super.bElToMecRatio;
-  uint8_t bSpeedBufferSize;
-  uint8_t bIndex;
 
-  /* Adjustment factor: minimum measurable speed is x time less than the minimum
-  reliable speed */
-  hMinReliableElSpeed01Hz /= 4u;
-  
-  /* Adjustment factor: maximum measurable speed is x time greather than the
-  maximum reliable speed */
-  hMaxReliableElSpeed01Hz *= 2u;
-  
-  pHandle->OvfFreq = (uint16_t)(pHandle->TIMClockFreq / 65536u);
-  
-  /* SW Init */
-  if (hMinReliableElSpeed01Hz == 0u)
-  {
-    /* Set fixed to 150 ms */
-    pHandle->HallTimeout = 150u; 
-  }
-  else
-  {
-    /* Set accordingly the min reliable speed */
-    /* 10000 comes from mS and 01Hz 
-    * 6 comes from the fact that sensors are toggling each 60 deg  */
-    pHandle->HallTimeout = 10000u / (6u * hMinReliableElSpeed01Hz);
-  }
-    
-  /* Compute the prescaler to the closet value of the TimeOut (in mS )*/
-  pHandle->HALLMaxRatio = (pHandle->HallTimeout * pHandle->OvfFreq) / 1000 ;
-   
-  /* Align MaxPeriod to a multiple of Overflow.*/
-  pHandle->MaxPeriod = (pHandle->HALLMaxRatio) * 65536uL;
+/**
+ * @brief            速度更新中频任务（频率1k，确保速度更新大于速度环，速度更新频率一般1kHz）
+ * @param    htim    速度更新所使用的定时器指针
+ * @function         这里配合foc高频中断+霍尔中断捕获实现估算插值补偿               
+ *                   MF：Moderate frequency中频
  
-  pHandle->SatSpeed = hMaxReliableElSpeed01Hz;
-  
-  pHandle->PseudoFreqConv = ((pHandle->TIMClockFreq / 6u) 
-                     / (pHandle->_Super.hMeasurementFrequency)) * 65536u;
-    
-  pHandle->MinPeriod = ((10u * pHandle->TIMClockFreq) / 6u) 
-                     / hMaxReliableElSpeed01Hz;
-    
-  pHandle->PWMNbrPSamplingFreq = (pHandle->_Super.hMeasurementFrequency / 
-                pHandle->SpeedSamplingFreqHz) - 1u;
-  
-  /* Reset speed reliability */
-  pHandle->SensorIsReliable = true;
-  
-  /* Erase speed buffer */
-  bSpeedBufferSize = pHandle->SpeedBufferSize;
-  
-  for (bIndex = 0u; bIndex < bSpeedBufferSize; bIndex++)
-  {
-    pHandle->SensorSpeed[bIndex]  = 0;
-  }
+
+ * @warnings         ！！！注意：本函数配合中频任务共同运行才能完成一次完整的速度估计
+                     所以，完整电角度估算与速度估算流程是共同混杂在foc任务+速度更新中频任务+霍尔中断低频任务中的
+ */
+void speed_updateMF_IT(HALL_Struct *hall)
+{
+	static int32_t  n=(int32_t)(SPEED_PERIOD/FOC_PERIOD);///<就是公式中的n
+	if(__HAL_TIM_GET_FLAG(htim,TIM_FLAG_UPDATE))
+	{
+		hall->dpp_2=hall->dpp_1;
+    hall->dpp_1=hall->avg_dpp;
+    hall->a_dpp=hall->dpp_1-hall->dpp_2;
+    hall->dpp = hall->dpp_1+hall->a_dpp;
+    hall->delta_theta = hall->refer_theta - hall->theta;
+		
+		//5462为30°的整型值，65536为2PI
+		//当电机实际的角度追踪值与FOC所用的角度值差30°时不可接受
+		//故当偏差大于30°时强制让它为追踪值；
+		if(hall->delta_theta>5462)
+		{
+			hall->theta=hall->refer_theta;//<refer_theta就是上文的θref
+			hall->comp_dpp =(2731 / n);
+		}
+		else if (hall->delta_theta<-5462)
+		{
+			hall->theta=hall->refer_theta;
+			hall->comp_dpp =(-2731 / n);
+		}
+		else
+		{
+			hall->comp_dpp =(hall->delta_theta / n);
+		}
+		__HAL_TIM_CLEAR_FLAG(htim,TIM_FLAG_UPDATE);
+	}
 }
 
+
 /**
-* @brief  Clear software FIFO where are "pushed" latest speed information
-*         This function must be called before starting the motor to initialize
-*	        the speed measurement process.
-* @param  pHandle: handler of the current instance of the hall_speed_pos_fdbk component*
-* @retval none
-*/
-void HALL_Clear(HALL_Handle_t *pHandle)
+ * @brief            FOC高频中断运行流程（至少8K，这里选取10K执行频率）
+ * @param            电机FOC流程对象结构体
+ * @description      电机的状态机用户可自行定义，这里从简
+ *                   HF：High frequency高频
+ */
+void foc_processHF_IT(HALL_Struct *hall)
 {
+		static float Rv_U=0,Rv_V=0,Rv_W=0;                //<采样电阻电压
+		static float current_U=0,current_V=0,current_W=0; //<三电阻法，相电流存储变量
+		static float speedP=(float)(1.0f/4);              //<乘积因子，电角速度=极对数*机械角速度
+		
+		if(__HAL_ADC_GET_FLAG(foc->adc_motor_output.hadc,ADC_FLAG_JEOC))
+		{
+			/*********电流采样(入门秘法：不分扇区情况，按两电阻法直接暴力采)*******/
 
-  
-  /* Mask interrupts to insure a clean intialization */
-  CCP_DisableCAPMode1Int(CAP0);
-  CCP_DisableCAPMode1Int(CAP1);
-  CCP_DisableCAPMode1Int(CAP2);
-  
-  pHandle->RatioDec = false;
-  pHandle->RatioInc = false;
-  
-  /* Reset speed reliability */
-  pHandle->SensorIsReliable = true;
-  
-  /* Acceleration measurement not implemented.*/
-  pHandle->_Super.hMecAccel01HzP = 0;
-  
-  pHandle->FirstCapt = 0u;
-  pHandle->BufferFilled = 0u;
-  pHandle->OVFCounter = 0u;  
-
-  pHandle->CompSpeed = 0;
-  pHandle->ElSpeedSum = 0;
-    
-  pHandle->Direction = POSITIVE;
-    
-  /* Initialize speed buffer index */
-  pHandle->SpeedFIFOIdx = 0u;
-  
-  /* Clear new speed acquisitions flag */
-  pHandle->NewSpeedAcquisition = 0;
-  
-  /* Re-initialize partly the timer */
-  // LL_TIM_SetPrescaler (TIMx, pHandle->HALLMaxRatio);
-  // LL_TIM_SetCounter (TIMx, HALL_COUNTER_RESET);
-  // LL_TIM_EnableCounter (TIMx);
-  // LL_TIM_EnableIT_CC1 (TIMx);
-  
-  HALL_Init_Electrical_Angle(pHandle);
-}
-
-#if defined (CCMRAM)
-#if defined (__ICCARM__)
-#pragma location = ".ccmram"
-#elif defined (__CC_ARM)
-__attribute__((section ("ccmram")))
-#endif
-#endif
-/**
-* @brief  Update the rotor electrical angle integrating the last measured 
-*         instantaneous electrical speed express in dpp.
-* @param  pHandle: handler of the current instance of the hall_speed_pos_fdbk component
-* @retval int16_t Measured electrical angle in s16degree format.
-*/
-int16_t HALL_CalcElAngle(HALL_Handle_t *pHandle)
-{
-    
-  if (pHandle->_Super.hElSpeedDpp != HALL_MAX_PSEUDO_SPEED)
-  {
-    pHandle->MeasuredElAngle += pHandle->_Super.hElSpeedDpp;
-    pHandle->TargetElAngle += pHandle->_Super.hElSpeedDpp;
-    pHandle->_Super.hElAngle += pHandle->_Super.hElSpeedDpp + pHandle->CompSpeed;
-    pHandle->PrevRotorFreq = pHandle->_Super.hElSpeedDpp;
-  }
-  else
-  {
-    pHandle->_Super.hElAngle += pHandle->PrevRotorFreq;
-  }
       
-  return pHandle->_Super.hElAngle;
-}
+					/*********二选一，根据需求注释掉就可，推荐PLL法********/
+					//****************插值法****************//
+					hall_get_Speed(hall);//<插值法估算电角速度rad/s
+					hall_positionEst(hall);//<插值法估算角度
+					//***********锁相环PLL法***************//
+					// hall_get_Speed(hall);//<插值法获取电角速度rad/s
+					// foc->angle_result.electrical_angle=hall_pll_filter(&hall1);
 
 
-/**
-  * @brief  This method must be called - at least - with the same periodicity
-  *         on which speed control is executed.
-  *         This method compute and store rotor istantaneous el speed (express 
-  *         in dpp considering the measurement frequency) in order to provide it
-  *         to HALL_CalcElAngle function and SPD_GetElAngle. 
-  *         Then compute rotor average el speed (express in dpp considering the 
-  *         measurement frequency) based on the buffer filled by IRQ, then - as 
-  *         a consequence - compute, store and return - through parameter 
-  *         hMecSpeed01Hz - the rotor average mech speed, expressed in 01Hz.
-  *         Then check, store and return the reliability state of
-  *         the sensor; in this function the reliability is measured with 
-  *         reference to specific parameters of the derived
-  *         sensor (HALL) through internal variables managed by IRQ.
-  * @param  pHandle: handler of the current instance of the hall_speed_pos_fdbk component
-  * @param  hMecSpeed01Hz pointer to int16_t, used to return the rotor average
-  *         mechanical speed (01Hz)
-  * @retval true = sensor information is reliable
-  *         false = sensor information is not reliable
-  */
-bool HALL_CalcAvrgMecSpeed01Hz(HALL_Handle_t *pHandle, int16_t *hMecSpeed01Hz)
-{
-  int16_t SpeedMeasAux;
-  bool bReliability;
-    
-    /* Computing the rotor istantaneous el speed */
-    SpeedMeasAux = pHandle->CurrentSpeed;
-    
-    if(pHandle->SensorIsReliable)
-    {
-      /* No errors have been detected during rotor speed information 
-      extrapolation */
-      // if ( LL_TIM_GetPrescaler (TIMx) >= pHandle->HALLMaxRatio )
-      // {                           
-      //   /* At start-up or very low freq */
-      //   /* Based on current prescaler value only */
-      //   pHandle->_Super.hElSpeedDpp = 0;
-      //   *hMecSpeed01Hz = 0;
-      // }
-      // else
-      // {
-        pHandle->_Super.hElSpeedDpp = SpeedMeasAux;
-        if( SpeedMeasAux == 0 ) 
-        {
-          /* Speed is too low */          
-          *hMecSpeed01Hz = 0;
-        }
-        else
-        {  
-          /* Check if speed is not to fast */
-          if ( SpeedMeasAux != HALL_MAX_PSEUDO_SPEED )
-          {                      
-            #ifdef HALL_MTPA
-            {
-              pHandle->CompSpeed = 0;
-            }
-            #else
-            {
-              pHandle->TargetElAngle = pHandle->MeasuredElAngle;
-              pHandle->DeltaAngle = pHandle->MeasuredElAngle - pHandle->_Super.hElAngle;
-              pHandle->CompSpeed = (int16_t)
-                ((int32_t)(pHandle->DeltaAngle)/
-                 (int32_t)(pHandle->PWMNbrPSamplingFreq));
-            }
-            #endif
-            
-            *hMecSpeed01Hz = HALL_CalcAvrgElSpeedDpp(pHandle);
-                        
-            /* Converto el_dpp to Mec01Hz */
-            *hMecSpeed01Hz = (int16_t)((*hMecSpeed01Hz * 
-                              (int32_t)pHandle->_Super.hMeasurementFrequency * 10)/
-                              (65536 * (int32_t)pHandle->_Super.bElToMecRatio));
-            
-          }
-          else
-          {
-            *hMecSpeed01Hz = (int16_t)pHandle->SatSpeed;
-          }
-        }
-      // }
-      bReliability = SPD_IsMecSpeedReliable(&pHandle->_Super, hMecSpeed01Hz);
-    }
-    else 
-    {
-       bReliability = false;
-       pHandle->_Super.bSpeedErrorNumber = pHandle->_Super.bMaximumSpeedErrorsNumber;
-       /* If speed is not reliable the El and Mec speed is set to 0 */
-       pHandle->_Super.hElSpeedDpp = 0;
-       *hMecSpeed01Hz = 0; 
-    }
-
-  pHandle->_Super.hAvrMecSpeed01Hz = *hMecSpeed01Hz;
-  
-  return (bReliability);
-}
-
-#if defined (CCMRAM)
-#if defined (__ICCARM__)
-#pragma location = ".ccmram"
-#elif defined (__CC_ARM)
-__attribute__((section ("ccmram")))
-#endif
-#endif
-/**
-* @brief  Example of private method of the class HALL to implement an MC IRQ function
-*         to be called when TIMx capture event occurs
-* @param  pHandle: handler of the current instance of the hall_speed_pos_fdbk component
-* @retval none
-*/
-void * HALL_TIMx_CC_IRQHandler(void *pHandleVoid)
-{
-  HALL_Handle_t *pHandle = (HALL_Handle_t *) pHandleVoid; 
-  uint8_t bPrevHallState;
-  uint32_t wCaptBuf;
-  uint16_t hPrscBuf;
-  uint16_t hHighSpeedCapture;
-
-  if (pHandle->SensorIsReliable)
-  {
-    /* A capture event generated this interrupt */
-    bPrevHallState = pHandle->HallState;
-
-    if (pHandle->SensorPlacement == DEGREES_120)
-    {
-      pHandle->HallState  = Get_HallValue();
-    }
-
-    switch(pHandle->HallState)
-    {
-      case STATE_5:
-        if (bPrevHallState == STATE_4)
-        {
-          pHandle->Direction = POSITIVE;
-          pHandle->MeasuredElAngle = pHandle->PhaseShift;
-        }
-        else if (bPrevHallState == STATE_1)
-        {
-          pHandle->Direction = NEGATIVE;
-            pHandle->MeasuredElAngle = (int16_t)(pHandle->PhaseShift+S16_60_PHASE_SHIFT);
-        }
-        else
-        {
-        }
-        break;
-
-      case STATE_1:
-        if (bPrevHallState == STATE_5)
-        {
-          pHandle->Direction = POSITIVE;
-          pHandle->MeasuredElAngle = pHandle->PhaseShift+S16_60_PHASE_SHIFT;
-        }
-        else if (bPrevHallState == STATE_3)
-        {
-          pHandle->Direction = NEGATIVE;
-            pHandle->MeasuredElAngle = (int16_t)(pHandle->PhaseShift+S16_120_PHASE_SHIFT);
-        }
-        else
-        {
-        }
-        break;
-
-      case STATE_3:
-        if (bPrevHallState == STATE_1)
-        {
-          pHandle->Direction = POSITIVE;
-            pHandle->MeasuredElAngle =(int16_t)(pHandle->PhaseShift + S16_120_PHASE_SHIFT);
-        }
-        else if (bPrevHallState == STATE_2)
-        {
-          pHandle->Direction = NEGATIVE;
-            pHandle->MeasuredElAngle = (int16_t)(pHandle->PhaseShift+S16_120_PHASE_SHIFT+
-                  S16_60_PHASE_SHIFT);
-        }
-        else
-        {
-        }
-
-        break;
-
-      case STATE_2:
-        if (bPrevHallState == STATE_3)
-        {
-          pHandle->Direction = POSITIVE;
-            pHandle->MeasuredElAngle =(int16_t)(pHandle->PhaseShift + S16_120_PHASE_SHIFT
-                  + S16_60_PHASE_SHIFT);
-        }
-        else if (bPrevHallState == STATE_6)
-        {
-          pHandle->Direction = NEGATIVE;
-            pHandle->MeasuredElAngle = (int16_t)(pHandle->PhaseShift-S16_120_PHASE_SHIFT);
-        }
-        else
-        {
-        }
-        break;
-
-      case STATE_6:
-        if (bPrevHallState == STATE_2)
-        {
-          pHandle->Direction = POSITIVE;
-          pHandle->MeasuredElAngle =(int16_t)(pHandle->PhaseShift - S16_120_PHASE_SHIFT); 
-        }
-        else if (bPrevHallState == STATE_4)
-        {
-          pHandle->Direction = NEGATIVE;
-          pHandle->MeasuredElAngle =(int16_t)(pHandle->PhaseShift - S16_60_PHASE_SHIFT);  
-        }
-        else
-        {
-        }
-        break;
-
-      case STATE_4:
-        if (bPrevHallState == STATE_6)
-        {
-          pHandle->Direction = POSITIVE;
-          pHandle->MeasuredElAngle =(int16_t)(pHandle->PhaseShift - S16_60_PHASE_SHIFT); 
-        }
-        else if (bPrevHallState == STATE_5)
-        {
-          pHandle->Direction = NEGATIVE;
-          pHandle->MeasuredElAngle =(int16_t)(pHandle->PhaseShift);  
-        }
-        else
-        {
-        }
-        break;
-
-      default:
-        /* Bad hall sensor configutarion so update the speed reliability */
-        pHandle->SensorIsReliable = false;
-
-        break;
-    }
-
-
-#ifdef HALL_MTPA
-    {
-      pHandle->_Super.hElAngle = pHandle->MeasuredElAngle;
-    }
-#endif
-
-    /* Discard first capture */
-    if (pHandle->FirstCapt == 0u)
-    {
-      pHandle->FirstCapt++;
-      LL_TIM_IC_GetCaptureCH1(TIMx);
-    }
-    else
-    {
-      /* used to validate the average speed measurement */
-      if (pHandle->BufferFilled < pHandle->SpeedBufferSize)
-      {
-        pHandle->BufferFilled++;
-      }
-
-      /* Store the latest speed acquisition */
-      hHighSpeedCapture = LL_TIM_IC_GetCaptureCH1(TIMx);
-      CCP_GetCAPMode0Result(uint32_t CCPn, uint32_t Channel);
-      
-      wCaptBuf = (uint32_t)hHighSpeedCapture;
-      hPrscBuf =  LL_TIM_GetPrescaler (TIMx);
-
-      /* Add the numbers of overflow to the counter */
-      wCaptBuf += (uint32_t)pHandle->OVFCounter * 0x10000uL;
-
-      if (pHandle->OVFCounter != 0u)
-      {
-        /* Adjust the capture using prescaler */
-        uint16_t hAux;
-        hAux = hPrscBuf + 1u;
-        wCaptBuf *= hAux;
-
-        if (pHandle->RatioInc)
-        {
-          pHandle->RatioInc = false;	/* Previous capture caused overflow */
-          /* Don't change prescaler (delay due to preload/update mechanism) */
-        }
-        else
-        {
-          if ( LL_TIM_GetPrescaler (TIMx) < pHandle->HALLMaxRatio) /* Avoid OVF w/ very low freq */
-          {
-            LL_TIM_SetPrescaler (TIMx,LL_TIM_GetPrescaler (TIMx)+1); /* To avoid OVF during speed decrease */
-            pHandle->RatioInc = true;	  /* new prsc value updated at next capture only */
-          }
-        }
-      }
-      else
-      {
-        /* If prsc preload reduced in last capture, store current register + 1 */
-        if (pHandle->RatioDec)  /* and don't decrease it again */
-        {
-          /* Adjust the capture using prescaler */
-          uint16_t hAux;
-          hAux = hPrscBuf + 2u;
-          wCaptBuf *= hAux;
-
-          pHandle->RatioDec = false;
-        }
-        else  /* If prescaler was not modified on previous capture */
-        {
-          /* Adjust the capture using prescaler */
-          uint16_t hAux = hPrscBuf + 1u;
-          wCaptBuf *= hAux;
-
-          if (hHighSpeedCapture < LOW_RES_THRESHOLD)/* If capture range correct */
-          {
-            if(LL_TIM_GetPrescaler (TIMx) > 0u) /* or prescaler cannot be further reduced */
-            {
-              LL_TIM_SetPrescaler (TIMx, LL_TIM_GetPrescaler (TIMx)-1);	/* Increase accuracy by decreasing prsc */
-              /* Avoid decrementing again in next capt.(register preload delay) */
-              pHandle->RatioDec = true;
-            }
-          }
-        }
-      }
-
-#if 0
-      /* Store into the buffer */
-      /* Null Speed is detected, erase the buffer */
-      if( wCaptBuf > pHandle->MaxPeriod) {
-        uint8_t bIndex;
-        for (bIndex = 0u; bIndex < pHandle->SpeedBufferSize; bIndex++)
-        {
-          pHandle->SensorSpeed[bIndex]  = 0;
-        }
-        pHandle->BufferFilled = 0 ;
-        pHandle->SpeedFIFOSetIdx=1;
-        pHandle->SpeedFIFOGetIdx =0;
-        /* Indicate new speed acquisitions */
-        pHandle->NewSpeedAcquisition = 1;
-        pHandle->ElSpeedSum =0;
-      }
-      /* Filtering to fast speed... could be a glitch  ? */
-      /* the HALL_MAX_PSEUDO_SPEED is temporary in the buffer, and never included in average computation*/
-      else
-#endif
-        if ( wCaptBuf < pHandle->MinPeriod )
-        {
-          pHandle->CurrentSpeed = HALL_MAX_PSEUDO_SPEED;
-          pHandle->NewSpeedAcquisition = 0;
-        }
-        else
-        {
-          pHandle->ElSpeedSum -= pHandle->SensorSpeed[pHandle->SpeedFIFOIdx]; /* value we gonna removed from the accumulator */
-          if (wCaptBuf >= pHandle->MaxPeriod)
-          {
-            pHandle->SensorSpeed[pHandle->SpeedFIFOIdx]  = 0;
-          }
-          else {
-            pHandle->SensorSpeed[pHandle->SpeedFIFOIdx] = (int16_t) (pHandle->PseudoFreqConv/wCaptBuf);
-            pHandle->SensorSpeed[pHandle->SpeedFIFOIdx]*= pHandle->Direction;
-            pHandle->ElSpeedSum += pHandle->SensorSpeed[pHandle->SpeedFIFOIdx];
-          }
-          /* Update pointers to speed buffer */
-          pHandle->CurrentSpeed = pHandle->SensorSpeed[pHandle->SpeedFIFOIdx];
-          pHandle->SpeedFIFOIdx++;
-          if (pHandle->SpeedFIFOIdx == pHandle->SpeedBufferSize)
-          {
-            pHandle->SpeedFIFOIdx = 0u;
-          }
-          /* Indicate new speed acquisitions */
-          pHandle->NewSpeedAcquisition = 1;
-        }
-      /* Reset the number of overflow occurred */
-      pHandle->OVFCounter = 0u;
-    }
-  }
-  return MC_NULL;
-}
-
-#if defined (CCMRAM)
-#if defined (__ICCARM__)
-#pragma location = ".ccmram"
-#elif defined (__CC_ARM)
-__attribute__((section ("ccmram")))
-#endif
-#endif
-/**
-* @brief  Example of private method of the class HALL to implement an MC IRQ function
-*         to be called when TIMx update event occurs
-* @param  pHandle: handler of the current instance of the hall_speed_pos_fdbk component
-* @retval none
-*/
-void * HALL_TIMx_UP_IRQHandler(void *pHandleVoid)
-{
-  HALL_Handle_t *pHandle = (HALL_Handle_t *) pHandleVoid;
-  TIM_TypeDef* TIMx = pHandle->TIMx;
-
-  if (pHandle->SensorIsReliable)
-  {
-    uint16_t hMaxTimerOverflow;
-    /* an update event occured for this interrupt request generation */
-    pHandle->OVFCounter++;
-
-    hMaxTimerOverflow = (uint16_t)(((uint32_t)pHandle->HallTimeout * pHandle->OvfFreq)
-      /((LL_TIM_GetPrescaler (TIMx)+1) * 1000u));
-    if (pHandle->OVFCounter >= hMaxTimerOverflow)
-    {
-        /* Set rotor speed to zero */
-      pHandle->_Super.hElSpeedDpp = 0;
-
-      /* Reset the electrical angle according the hall sensor configuration */
-      HALL_Init_Electrical_Angle(pHandle);
-
-      /* Reset the overflow counter */
-      pHandle->OVFCounter = 0u;
-
-
-#if 1
-      /* Reset the SensorSpeed buffer*/
-        uint8_t bIndex;
-        for (bIndex = 0u; bIndex < pHandle->SpeedBufferSize; bIndex++)
-          {
-            pHandle->SensorSpeed[bIndex]  = 0;
-          }
-        pHandle->BufferFilled = 0 ;
-        pHandle->CurrentSpeed = 0;
-        pHandle->SpeedFIFOIdx=1;
-        pHandle->ElSpeedSum =0;
-#else
-        pHandle->ElSpeedSum -= pHandle->SensorSpeed[pHandle->SpeedFIFOIdx];
-        pHandle->SensorSpeed[pHandle->SpeedFIFOSetIdx]  = 0;
-        pHandle->CurrentSpeed = 0;
-        pHandle->SpeedFIFOIdx++;
-        if (pHandle->SpeedFIFOIdx == pHandle->SpeedBufferSize)
-        {
-          pHandle->SpeedFIFOIdx = 0u;
-        }
-#endif
-    }
-  }
-  return MC_NULL;
-}
-
-/**
-* @brief  Compute and returns the average rotor electrical speed express in dpp
-* @param  pHandle: handler of the current instance of the hall_speed_pos_fdbk component
-* @retval int16_t the average rotor electrical speed express in dpp
-*/
-static int16_t HALL_CalcAvrgElSpeedDpp(HALL_Handle_t *pHandle)
-{
-  
-  if (pHandle->NewSpeedAcquisition == 1)
-  {
- 
-    if (pHandle->BufferFilled < pHandle->SpeedBufferSize)
-    {
-      pHandle->AvrElSpeedDpp = (int16_t)  pHandle->CurrentSpeed;
-    }
-    else
-    {
-       pHandle->AvrElSpeedDpp = (int16_t)(pHandle->ElSpeedSum / (int32_t)(pHandle->SpeedBufferSize));        /* Average value */
-    }
-           
-    /* Clear new speed acquisitions flag */
-    pHandle->NewSpeedAcquisition = 0;
-  }
-  
-  return pHandle->AvrElSpeedDpp;
-}
-
-/**
-* @brief  Read the logic level of the three Hall sensor and individuates in this 
-*         way the position of the rotor (+/- 30锟?). Electrical angle is then 
-*         initialized.
-* @param  pHandle: handler of the current instance of the hall_speed_pos_fdbk component
-* @retval none
-*/
-static void HALL_Init_Electrical_Angle(HALL_Handle_t *pHandle)
-{
- 
-    if (pHandle->SensorPlacement == DEGREES_120) 
-    {
-      pHandle->HallState  = LL_GPIO_IsInputPinSet(pHandle->H3Port, pHandle->H3Pin)<<2
-                            | LL_GPIO_IsInputPinSet(pHandle->H2Port, pHandle->H2Pin)<<1
-                            | LL_GPIO_IsInputPinSet(pHandle->H1Port, pHandle->H1Pin);
-    }
-    else {
-      pHandle->HallState  = (LL_GPIO_IsInputPinSet(pHandle->H2Port, pHandle->H2Pin)^1)<<2
-                            | LL_GPIO_IsInputPinSet(pHandle->H3Port, pHandle->H3Pin)<<1
-                            | LL_GPIO_IsInputPinSet(pHandle->H1Port, pHandle->H1Pin);
-    }
- 
-  switch(pHandle->HallState)
-    {
-    case STATE_5:
-      pHandle->_Super.hElAngle = (int16_t)(pHandle->PhaseShift+S16_60_PHASE_SHIFT/2);
-      break;
-    case STATE_1:
-      pHandle->_Super.hElAngle =(int16_t)(pHandle->PhaseShift+S16_60_PHASE_SHIFT+
-                               S16_60_PHASE_SHIFT/2);
-      break;
-    case STATE_3:
-      pHandle->_Super.hElAngle =(int16_t)(pHandle->PhaseShift+S16_120_PHASE_SHIFT+
-                               S16_60_PHASE_SHIFT/2);      
-      break;
-    case STATE_2:
-      pHandle->_Super.hElAngle =(int16_t)(pHandle->PhaseShift-S16_120_PHASE_SHIFT-
-                               S16_60_PHASE_SHIFT/2);      
-      break;
-    case STATE_6:
-      pHandle->_Super.hElAngle =(int16_t)(pHandle->PhaseShift-S16_60_PHASE_SHIFT-
-                               S16_60_PHASE_SHIFT/2);          
-      break;
-    case STATE_4:
-      pHandle->_Super.hElAngle =(int16_t)(pHandle->PhaseShift-S16_60_PHASE_SHIFT/2);          
-      break;    
-    default:
-      /* Bad hall sensor configutarion so update the speed reliability */
-      pHandle->SensorIsReliable = false;
-      break;
-    }
-  
-  /* Initialize the measured angle */
-  pHandle->MeasuredElAngle = pHandle->_Super.hElAngle;
-  
-}
-
-/**
-  * @brief  It could be used to set istantaneous information on rotor mechanical
-  *         angle.
-  *         Note: Mechanical angle management is not implemented in this 
-  *         version of Hall sensor class.
-  * @param  pHandle pointer on related component instance
-  * @param  hMecAngle istantaneous measure of rotor mechanical angle
-  * @retval none
-  */
-void HALL_SetMecAngle(HALL_Handle_t *pHandle, int16_t hMecAngle)
-{
-}
-
-bool SPD_IsMecSpeedReliable(SpeednPosFdbk_Handle_t *pHandle, int16_t *pMecSpeed01Hz)
-{
-  bool SpeedSensorReliability = true;
-  uint8_t bSpeedErrorNumber;
-  uint8_t bMaximumSpeedErrorsNumber = pHandle->bMaximumSpeedErrorsNumber;
-  
-    bool SpeedError = false;
-  uint16_t hAbsMecSpeed01Hz, hAbsMecAccel01HzP;
-  int16_t hAux;
-    
-  bSpeedErrorNumber = pHandle->bSpeedErrorNumber;
-    
-    /* Compute absoulte value of mechanical speed */
-   if (*pMecSpeed01Hz < 0)
-  {
-      hAux = -(*pMecSpeed01Hz);
-      hAbsMecSpeed01Hz = (uint16_t)(hAux);
-    }
-    else
-    {
-      hAbsMecSpeed01Hz = (uint16_t)(*pMecSpeed01Hz);
-    }
-    
-    if (hAbsMecSpeed01Hz > pHandle->hMaxReliableMecSpeed01Hz)
-    {
-      SpeedError = true;
-    }
-    
-    if (hAbsMecSpeed01Hz < pHandle->hMinReliableMecSpeed01Hz)
-    {
-      SpeedError = true;
-    }
-    
-    /* Compute absoulte value of mechanical acceleration */
-    if (pHandle->hMecAccel01HzP < 0)
-    {
-      hAux = -(pHandle->hMecAccel01HzP);
-      hAbsMecAccel01HzP = (uint16_t)(hAux);
-    }
-    else
-    {
-      hAbsMecAccel01HzP = (uint16_t)(pHandle->hMecAccel01HzP);
-    }
-    
-    if ( hAbsMecAccel01HzP > pHandle->hMaxReliableMecAccel01HzP)
-    {
-      SpeedError = true;
-    }
-    
-    if (SpeedError == true)
-    {
-      if (bSpeedErrorNumber < bMaximumSpeedErrorsNumber)
-      {
-        bSpeedErrorNumber++;
-      }
-    }
-    else
-    {
-      if (bSpeedErrorNumber < bMaximumSpeedErrorsNumber)
-      {
-        bSpeedErrorNumber = 0u;
-      }
-    }
-    
-    if (bSpeedErrorNumber == bMaximumSpeedErrorsNumber)
-    { 
-      SpeedSensorReliability = false; 
-    }
-  
-    pHandle->bSpeedErrorNumber = bSpeedErrorNumber;
-  
-  return(SpeedSensorReliability);
-}
+					//****机械角速度计算*****//
+					foc->speed_result.eleSpeed=hall->omega_inter;//<插值法或锁相环法中的估算电角速度都可以带入(推荐插值法速度),单位rad/s
+			}
+		__HAL_ADC_CLEAR_FLAG(foc->adc_motor_output.hadc,ADC_FLAG_JEOC);
+	}
