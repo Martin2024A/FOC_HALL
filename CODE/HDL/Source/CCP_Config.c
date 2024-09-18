@@ -56,5 +56,16 @@ void CCP_Init(void)
 	CCP_Start(CCP1);				
 }
 
+uint8_t CCP_GetPrescaler(void)
+{
+    uint32_t temp;
+    const uint8_t prescalerLookup[4] = {1, 4, 16, 64}; // 预分频查找表
+
+    // 读取CCP->CON1寄存器的第4、5位
+    temp = (CCP->CON1 >> 4) & 0x03;
+
+    // 返回相应的预分频值
+    return prescalerLookup[temp];
+}
 
 /*------------------------------------test------------------------------------*/

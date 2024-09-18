@@ -80,11 +80,11 @@ void EPWM_Init(void)
 	*/
 	EPWM_EnablePeriodInt(EPWM_CH_0_MSK);								/*开启中断*/		
 	
-	NVIC_EnableIRQ(EPWM_IRQn);
+	
 	/*
 	(6)设置优先级
 	*/	
-	NVIC_SetPriority(EPWM_IRQn,3);					/*优先级0~3， 0最高、3最低*/
+	
 	
 	/*
 	(7)设置IO口输出

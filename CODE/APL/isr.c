@@ -167,8 +167,8 @@ void CCP_IRQHandler(void)
 		// }
 		// CaptureCount ++;		
 	
-		halldata = get_hallValue();
-		printf(" %d \n\r",halldata);
+		// halldata = get_hallValue();
+		// printf(" %d \n\r",halldata);
 		CCP_ClearCAPMode1IntFlag(CAP0);
 		CCP_ClearCAPMode1IntFlag(CAP1);
 		CCP_ClearCAPMode1IntFlag(CAP2);
