@@ -222,9 +222,10 @@ void EPWM_IRQHandler(void)
 
 void ADC1_IRQHandler(void)
 {
-	if(ADC1_GetChannelIntFlag(ADC1_CH_8))
+	if(ADC1_GetChannelIntFlag(ADC1_CH_30))
 	{
-		ADC1_ClearChannelIntFlag(ADC1_CH_8);
+		printf("ok");
+		ADC1_ClearChannelIntFlag(ADC1_CH_30);
 	}			
 }
 /****************************************************************************

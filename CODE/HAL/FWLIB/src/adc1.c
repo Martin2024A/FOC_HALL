@@ -162,10 +162,29 @@ void ADC1_EnableHardwareTrigger(uint32_t TriggerSource)
 		case ADC1_TG_EXT_RISING:
 			ADC1->ADCHWTG |= TriggerSource;
 			break;
+		case ADC1_TG_EPWM_CMP0:
+		case ADC1_TG_EPWM_CMP1:
+			ADC1->ADCHWTG |= TriggerSource;
+			break;
+
 		default:
 			break;
 	}	
 	ADC1->ADCLOCK = 0x00;	
+}
+
+/*****************************************************************************
+ ** \brief	ADC1_EnableEPWMCmp0TiggerChannel
+ **			使能 EPWM 比较器0 触发的ADC1转换通道
+ ** \param [in] ChannelMask: ADC1_CH_0_MSK ~ ADC1_CH_30_MSK
+ ** \return  none
+ ** \note  
+*****************************************************************************/
+void ADC1_EnableEPWMCmp0TiggerChannel(uint32_t ChannelMask)
+{
+	ADC1->ADCLOCK = ADC1_LOCK_WRITE_KEY;
+	ADC1->ADCCHPTG0 |=(ChannelMask);	
+	ADC1->ADCLOCK = 0x00;		
 }
 /*****************************************************************************
  ** \brief	ADC1_DisableHardwareTrigger

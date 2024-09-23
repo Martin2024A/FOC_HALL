@@ -15,7 +15,7 @@ void EPWM_Init(void)
 	/*
 	(1)设置EPWM运行模式
 	*/
-	EPWM_ConfigRunMode(  EPWM_COUNT_UP_DOWN 		| 		
+	EPWM_ConfigRunMode(  EPWM_COUNT_UP_DOWN 	| 		
 						 EPWM_OCU_SYMMETRIC 	|			/*对称模式*/
 						 EPWM_WFG_INDEPENDENT   |			/*独立*/
 						 EPWM_OC_INDEPENDENT);				/*独立输出模式*/
@@ -82,8 +82,9 @@ void EPWM_Init(void)
 	
 	
 	/*
-	(6)设置优先级
+	(6)设置触发比较器
 	*/	
+	EPWM_ConfigCompareTriger(EPWM_CMPTG_0,EPWM_CMPTG_FALLING,EPWM_CMPTG_EPWM0,1000);
 	
 	
 	/*

@@ -436,6 +436,8 @@ void EPWM_ConfigCompareTriger(uint32_t CmpTgn, uint32_t CmpTgMode,uint32_t CmpTg
 						   (0xffff & CmpTgData);	
 	EPWM->LOCK = 0x0;
 }
+
+
 /*****************************************************************************
  ** \brief	 EPWM_EnableHall
  **			 ¿ªÆôHallÄ£Ê½¼ì²â
