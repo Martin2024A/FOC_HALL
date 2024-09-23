@@ -85,7 +85,10 @@ void NVIC_Init(void)
 	NVIC_SetPriority(ADC1_IRQn,2);		
 	/*EPWM*/
 	NVIC_EnableIRQ(EPWM_IRQn);
-	NVIC_SetPriority(EPWM_IRQn,3);					
+	NVIC_SetPriority(EPWM_IRQn,3);	
+	/*TIM1*/
+	NVIC_EnableIRQ(TIMER1_IRQn);	
+	NVIC_SetPriority(TIMER1_IRQn,3);				
 }
 /*------------------------------------test------------------------------------*/
 

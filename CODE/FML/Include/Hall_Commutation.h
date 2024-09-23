@@ -9,7 +9,7 @@ extern "C"{
 /*----------------------------------include-----------------------------------*/
 #include "CMS32M55xx.h"
 #include "UART_Config.h"
-#include "stdbool.h"
+
 /*-----------------------------------macro------------------------------------*/
 #define SENSOR_MODE 1
 

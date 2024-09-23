@@ -1,6 +1,5 @@
-
 /*----------------------------------include-----------------------------------*/
-#include "CCP_Config.h"
+#include "Myproject.h"
 /*-----------------------------------macro------------------------------------*/
 
 /*----------------------------------typedef-----------------------------------*/
@@ -22,15 +21,15 @@ void CCP_Init(void)
 	(2)设置CCP运行模式
 	*/
 	CCP_EnableCAPMode1();									/*设置CCP模块工作模式为捕获模式1*/
-	CCP_ConfigCAPMode1(CAP0,CCP_CAP_MODE1_BOTH_EDGE);		/*设置捕获通道为CAP0，上升沿捕获*/
+	CCP_ConfigCAPMode1(CAP0,CCP_CAP_MODE1_BOTH_EDGE);		/*设置捕获通道为CAP0，双沿捕获*/
 	CCP_ConfigCAPMode1(CAP1,CCP_CAP_MODE1_BOTH_EDGE);		
 	CCP_ConfigCAPMode1(CAP2,CCP_CAP_MODE1_BOTH_EDGE);		
 
 	/*
 	(3)设置CCP捕获通道
 	*/
-	CCP_SelCAPMode1Channel(CAP0,ECAP10);				/*CAP0通道选择连接外部ECAP02接口*/
-	SYS_SET_IOCFG(IOP31CFG,SYS_IOCFG_P31_ECAP10);		/*设置P15为ECAP02*/
+	CCP_SelCAPMode1Channel(CAP0,ECAP10);				/*CAP0通道选择连接外部ECAP10接口*/
+	SYS_SET_IOCFG(IOP31CFG,SYS_IOCFG_P31_ECAP10);		/*设置P31为ECAP10*/
 
 	CCP_SelCAPMode1Channel(CAP1,ECAP11);
 	SYS_SET_IOCFG(IOP32CFG,SYS_IOCFG_P32_ECAP11);
@@ -45,27 +44,12 @@ void CCP_Init(void)
 	CCP_EnableCAPMode1Int(CAP1);					   /*开启CAP1通道捕获中断*/
 	CCP_EnableCAPMode1Int(CAP2);					   /*开启CAP2通道捕获中断*/
 		
-	/*
-	(5)设置CCP 中断优先级
-	*/	
 	
 	/*
-	(6)开启CCP模块
+	(5)开启CCP模块
 	*/	
 	CCP_EnableRun(CCP1);			
 	CCP_Start(CCP1);				
-}
-
-uint8_t CCP_GetPrescaler(void)
-{
-    uint32_t temp;
-    const uint8_t prescalerLookup[4] = {1, 4, 16, 64}; // 预分频查找表
-
-    // 读取CCP->CON1寄存器的第4、5位
-    temp = (CCP->CON1 >> 4) & 0x03;
-
-    // 返回相应的预分频值
-    return prescalerLookup[temp];
 }
 
 /*------------------------------------test------------------------------------*/

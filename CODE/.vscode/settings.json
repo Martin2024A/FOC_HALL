@@ -17,6 +17,8 @@
         "hall_commutation.h": "c",
         "uart_config.h": "c",
         "adc_config.h": "c",
-        "system_config.h": "c"
+        "system_config.h": "c",
+        "adc1.h": "c",
+        "myproject.h": "c"
     }
 }

@@ -7,13 +7,10 @@ extern "C"{
 #endif
 
 /*----------------------------------include-----------------------------------*/
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
 
 
-#include "CMS32M55xx.h"
+
+
 #include "UART_Config.h"
 #include "Motor_Control.h"
 #include "CCP_Config.h"

@@ -492,6 +492,8 @@ uint32_t ADC1_GetChannelIntFlag(uint32_t Channel);
 void ADC1_ClearChannelIntFlag(uint32_t Channel);
 
 
+void ADC1_EnableEPWMCmp0TiggerChannel(uint32_t ChannelMask);
+
 
 #ifdef __cplusplus
 }

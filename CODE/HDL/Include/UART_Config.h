@@ -7,7 +7,7 @@ extern "C"{
 #endif
 
 /*----------------------------------include-----------------------------------*/
-#include "CMS32M55xx.h"
+#include <stdint.h>
 /*-----------------------------------macro------------------------------------*/
 
 /*----------------------------------typedef-----------------------------------*/
@@ -23,10 +23,10 @@ extern volatile uint32_t U_TxdFlag;
 /*----------------------------------function----------------------------------*/
 void UART_Init(void);
 void Serial_SendByte(uint8_t Byte);
-uint8_t Uart1_getchar(void);
 void Serial_SendString(char *String);
 void Serial_SendArray(uint8_t *Array, uint16_t Length);
 void Serial_SendPacket(void);
+uint8_t Uart1_getchar(void);
 uint8_t Serial_GetRxFlag(void);
 /*------------------------------------test------------------------------------*/
 

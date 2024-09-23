@@ -1,10 +1,5 @@
 /*----------------------------------include-----------------------------------*/
-#include "cms32m55xx.h"
-#include "Motor_control.h"
-#include "TIM_Config.h"
-#include "Hall_Commutation.h"
-#include "UART_Config.h"
-#include "stdio.h"
+#include "Myproject.h"
 /*-----------------------------------macro------------------------------------*/
 
 /*----------------------------------typedef-----------------------------------*/
