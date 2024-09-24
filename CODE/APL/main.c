@@ -14,15 +14,14 @@
 /*----------------------------------function----------------------------------*/
 
 int  main(void)
-{		
+{
 	System_Init();    /*系统初始化*/
 	SoftwareInit();    /*软件初始化*/
 	HardwareInit();    /*硬件初始化*/
-
+	EPWM_ConfigChannelSymDuty(EPWM0, 100);	
 	while(1)
 	{
-		// Motor_Control();
-		// UartData_Processing();
+
 	}	
 }
 
@@ -40,12 +39,12 @@ void HardwareInit(void)
 	EPWM_Init();
 	// TIMER1_Init();		//定时中断
 	UART_Init();
+	NVIC_Init();
 }
 
 
 void NVIC_Init(void)
 {
-	/*修改，FOC高频、中频速度环、低频霍尔，设置优先级*/
 	/*Hall*/
     NVIC_SetPriority(CCP_IRQn,0);		/*优先级0~3， 0最高、3最低*/		
     NVIC_EnableIRQ(CCP_IRQn);
@@ -54,7 +53,7 @@ void NVIC_Init(void)
     NVIC_EnableIRQ(UART1_IRQn); 
 	/*ADC1*/
 	NVIC_EnableIRQ(ADC1_IRQn);         
-	NVIC_SetPriority(ADC1_IRQn,2);		
+	NVIC_SetPriority(ADC1_IRQn,0);		
 	/*EPWM*/
 	NVIC_EnableIRQ(EPWM_IRQn);
 	NVIC_SetPriority(EPWM_IRQn,3);	

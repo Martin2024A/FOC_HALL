@@ -1,6 +1,6 @@
 Dependencies for Project 'FOC_Motor', Target 'Test': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (..\..\CODE\APL\isr.c)(0x66F20A99)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\isr.o --omf_browse .\objects\isr.crf --depend .\objects\isr.d)
+F (..\..\CODE\APL\isr.c)(0x66F21295)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\isr.o --omf_browse .\objects\isr.crf --depend .\objects\isr.d)
 I (..\..\CODE\APL\Myproject.h)(0x66F2097D)
 I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (D:\Tool\MDK\Core\ARM\ARMCC\include\math.h)(0x60252378)
@@ -45,7 +45,7 @@ I (..\..\CODE\FML\Include\Hall_Commutation.h)(0x66F208C9)
 I (..\..\CODE\FML\Include\Motor_SVPWM.h)(0x66F2089D)
 I (..\..\CODE\FML\Include\Motor_Control.h)(0x66F208BA)
 I (..\..\CODE\APL\main.h)(0x66F20172)
-F (..\..\CODE\APL\main.c)(0x66F20AF7)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (..\..\CODE\APL\main.c)(0x66F212A9)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (..\..\CODE\APL\Myproject.h)(0x66F2097D)
 I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (D:\Tool\MDK\Core\ARM\ARMCC\include\math.h)(0x60252378)
@@ -232,7 +232,7 @@ I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
 I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
 I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
 I (D:\Tool\MDK\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
-F (..\..\CODE\HDL\Source\ADC_Config.c)(0x66F2079B)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\adc_config.o --omf_browse .\objects\adc_config.crf --depend .\objects\adc_config.d)
+F (..\..\CODE\HDL\Source\ADC_Config.c)(0x66F211D0)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\adc_config.o --omf_browse .\objects\adc_config.crf --depend .\objects\adc_config.d)
 I (..\..\CODE\HDL\Include\ADC_Config.h)(0x66F20770)
 I (..\..\CODE\HDL\Include\Hardware_drivers.h)(0x66F20799)
 I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66F2061D)
@@ -500,7 +500,7 @@ I (..\..\CODE\HAL\FWLIB\inc\uart.h)(0x642251F0)
 I (..\..\CODE\HAL\FWLIB\inc\wdt.h)(0x642251F0)
 I (..\..\CODE\HAL\FWLIB\inc\wwdt.h)(0x642251F0)
 I (..\..\CODE\HAL\FWLIB\inc\fmc.h)(0x642251F0)
-F (..\..\CODE\HAL\FWLIB\src\adc1.c)(0x66F20172)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\adc1.o --omf_browse .\objects\adc1.crf --depend .\objects\adc1.d)
+F (..\..\CODE\HAL\FWLIB\src\adc1.c)(0x66F210BA)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\CODE\HAL\CORE\Include -I ..\..\CODE\HAL\FWLIB\inc -I ..\..\CODE\APL -I ..\..\CODE\HAL\CORE\Source\ARM -I ..\..\CODE\HDL\Include -I ..\..\CODE\FML\Include-ID:\Tool\MDK\Pack\Cmsemicon\CMS32-Series\1.1.0\Device\CMS32M55xx\Include-D__UVISION_VERSION="536" -DCMS32M55xx-o .\objects\adc1.o --omf_browse .\objects\adc1.crf --depend .\objects\adc1.d)
 I (..\..\CODE\HAL\FWLIB\inc\adc1.h)(0x66F20172)
 I (..\..\CODE\HAL\CORE\Include\CMS32M55xx.h)(0x66F2061D)
 I (..\..\CODE\HAL\FWLIB\inc\core_cm0.h)(0x642251F0)
