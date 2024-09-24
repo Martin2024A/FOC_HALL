@@ -22,7 +22,7 @@ void ADC_Init(void)
 	*/	
 	ADC1_EnableScanChannel(ADC1_CH_8_MSK | ADC1_CH_30_MSK);						/*触发的通道选择AN13 */	
 	SYS_SET_IOCFG(IOP13CFG,SYS_IOCFG_P13_AN8);					/*关闭P21的数字功能*/
-    ADC1_SetAN30Channel(ADC1_CH_30_VREF_VDD);
+    ADC1_SetAN30Channel(ADC1_CH_30_BG);
 
 	/*
 	(3)设置ADC1硬件触发

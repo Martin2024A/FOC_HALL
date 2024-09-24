@@ -12,6 +12,8 @@ volatile uint32_t  CaptureValue2 = 0;			/*第二次捕获的值*/
 volatile uint32_t  CaptureCount =0;
 volatile uint32_t  OverFlowFlag =0;
 volatile uint8_t  ADCFlag =0;
+volatile uint32_t  CMPD =0;
+volatile uint32_t  ADC8 =0;
 /*-------------------------------------os-------------------------------------*/
 
 /*----------------------------------function----------------------------------*/
@@ -222,11 +224,14 @@ void ADC1_IRQHandler(void)
 	{
 		if(ADCFlag == 0)
 		{
-			printf("First trigger\n\r");
-				
+
+			EPWM_ConfigCompareTriger(EPWM_CMPTG_0,EPWM_CMPTG_FALLING,EPWM_CMPTG_EPWM2,100);
+			ADCFlag = 1;
+		}
+		if(ADCFlag == 1)
+		{
 
 		}
-		printf("");
 		ADC1_ClearChannelIntFlag(ADC1_CH_30);
 	}			
 }
