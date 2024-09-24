@@ -9,6 +9,7 @@
 /*-------------------------------------os-------------------------------------*/
 
 /*----------------------------------function----------------------------------*/
+#if 0
 void EPWM_Init(void)
 {
 	/*
@@ -103,8 +104,9 @@ void EPWM_Init(void)
 	*/		
 	EPWM_Start(EPWM_CH_0_MSK | EPWM_CH_2_MSK | EPWM_CH_4_MSK| EPWM_CH_1_MSK| EPWM_CH_3_MSK| EPWM_CH_5_MSK);
 }
+#endif
 
-#ifdef DEBUG_REMAP
+#if 1
 void EPWM_Init(void)
 {
 	/*
@@ -133,9 +135,9 @@ void EPWM_Init(void)
 	EPWM_ConfigChannelAsymDuty(EPWM2, 0, 0);
 	EPWM_ConfigChannelAsymDuty(EPWM4, 0, 0);
 
-	EPWM_DisableDeadZone(EPWM_CH_0_MSK | EPWM_CH_1_MSK |
-						 EPWM_CH_2_MSK | EPWM_CH_3_MSK |
-						 EPWM_CH_4_MSK | EPWM_CH_5_MSK);	/*关闭死区*/
+	EPWM_EnableDeadZone(EPWM_CH_0_MSK | 
+						 EPWM_CH_2_MSK |
+						 EPWM_CH_4_MSK ,30);	/*关闭死区*/
 
 
 	/*

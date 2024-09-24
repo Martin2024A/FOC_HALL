@@ -98,12 +98,20 @@ void SVPWM_SetPhaseVoltage(Volt_Components Valfa_beta)
   hCntPhB = (uint16_t)wTimePhB;
   hCntPhC = (uint16_t)wTimePhC;
   
+  #if 0
   EPWM_ConfigChannelSymDuty(EPWM0, hCntPhA + DEADTIME);					/*EPWM0通道的占空比 = 25%*/
   EPWM_ConfigChannelSymDuty(EPWM3, hCntPhA - DEADTIME);					/*EPWM0通道的占空比 = 25%*/
 	EPWM_ConfigChannelSymDuty(EPWM1, hCntPhB + DEADTIME);					/*EPWM2通道的占空比 = 50%*/	
   EPWM_ConfigChannelSymDuty(EPWM4, hCntPhB - DEADTIME);					/*EPWM2通道的占空比 = 50%*/	
 	EPWM_ConfigChannelSymDuty(EPWM2, hCntPhC + DEADTIME);					/*EPWM4通道的占空比 = 75%*/	
   EPWM_ConfigChannelSymDuty(EPWM5, hCntPhC - DEADTIME);					/*EPWM4通道的占空比 = 75%*/	
+  #endif
+
+#if 1
+  EPWM_ConfigChannelAsymDuty(EPWM0, hCntPhA,hCntPhA);			/*非对称模式下EPWM0通道的占空比*/
+	EPWM_ConfigChannelAsymDuty(EPWM2, hCntPhB, hCntPhB);
+	EPWM_ConfigChannelAsymDuty(EPWM4, hCntPhC,hCntPhC);
+  #endif
 }
 
 
