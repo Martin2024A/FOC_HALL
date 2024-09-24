@@ -203,7 +203,7 @@ void EPWM_IRQHandler(void)
 {
 	if( EPWM_GetPeriodIntFlag(EPWM0))
 	{
-//		FOC_Model();
+		FOC_Model();
 		EPWM_ClearPeriodIntFlag(EPWM0);
 	}	
 }
@@ -223,7 +223,7 @@ void ADC1_IRQHandler(void)
 		if(ADCFlag == 0)
 		{
 			printf("First trigger\n\r");
-				
+
 
 		}
 		printf("");

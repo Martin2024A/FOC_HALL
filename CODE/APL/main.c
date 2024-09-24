@@ -18,7 +18,6 @@ int  main(void)
 	System_Init();    /*系统初始化*/
 	SoftwareInit();    /*软件初始化*/
 	HardwareInit();    /*硬件初始化*/
-	EPWM_ConfigChannelSymDuty(EPWM0, 100);	
 	while(1)
 	{
 
@@ -34,7 +33,7 @@ void SoftwareInit(void)
 
 void HardwareInit(void)
 {
-	ADC_Init();		
+	// ADC_Init();		
 	// CCP_Init();
 	EPWM_Init();
 	// TIMER1_Init();		//定时中断
