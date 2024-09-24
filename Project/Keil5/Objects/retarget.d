@@ -1,4 +1,4 @@
-.\objects\retarget.o: ..\..\CODE\HDL\Source\retarget.c
+.\objects\retarget.o: ..\..\CODE\FML\Source\retarget.c
 .\objects\retarget.o: ..\..\CODE\HAL\CORE\Include\cms32m55xx.h
 .\objects\retarget.o: ..\..\CODE\HAL\FWLIB\inc\core_cm0.h
 .\objects\retarget.o: D:\Tool\MDK\Core\ARM\ARMCC\Bin\..\include\stdint.h

@@ -1,27 +1,36 @@
 
-#ifndef MOTOR_STATE_H 
-#define MOTOR_STATE_H 
+#ifndef HARDWARE_DRIVERS_H 
+#define HARDWARE_DRIVERS_H 
 
 #ifdef __cplusplus
 extern "C"{
 #endif
 
 /*----------------------------------include-----------------------------------*/
-#include "FML_drivers.h"
+#include <CMS32M55xx.h>
+
+#include <UART_Config.h>
+#include <System_Config.h>
+#include <EPWM_Config.h>
+#include <CCP_Config.h>
+#include <ADC_Config.h>
+#include <TIM_Config.h>
+
+#include <stdint.h>
 /*-----------------------------------macro------------------------------------*/
 
 /*----------------------------------typedef-----------------------------------*/
 
 /*----------------------------------variable----------------------------------*/
-extern Volt_Components Stat_Volt_q_d;     
+
 /*-------------------------------------os-------------------------------------*/
 
 /*----------------------------------function----------------------------------*/
-void FOC_Model(void);
+
 /*------------------------------------test------------------------------------*/
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif	/* MOTOR_STATE_H */
+#endif	/* HARDWARE_DRIVERS_H */

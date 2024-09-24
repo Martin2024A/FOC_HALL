@@ -1,27 +1,33 @@
 
-#ifndef MOTOR_STATE_H 
-#define MOTOR_STATE_H 
+#ifndef FML_DRIVERS_H 
+#define FML_DRIVERS_H 
 
 #ifdef __cplusplus
 extern "C"{
 #endif
 
 /*----------------------------------include-----------------------------------*/
-#include "FML_drivers.h"
+#include "Hardware_drivers.h"
+
+#include "Motor_type.h"
+#include "Motor_math.h"
+#include "Hall_Commutation.h"
+#include "Motor_SVPWM.h"
+#include "Motor_Control.h"
 /*-----------------------------------macro------------------------------------*/
 
 /*----------------------------------typedef-----------------------------------*/
 
 /*----------------------------------variable----------------------------------*/
-extern Volt_Components Stat_Volt_q_d;     
+
 /*-------------------------------------os-------------------------------------*/
 
 /*----------------------------------function----------------------------------*/
-void FOC_Model(void);
+
 /*------------------------------------test------------------------------------*/
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif	/* MOTOR_STATE_H */
+#endif	/* FML_DRIVERS_H */

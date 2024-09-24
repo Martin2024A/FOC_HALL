@@ -1,5 +1,6 @@
 .\objects\uart_config.o: ..\..\CODE\HDL\Source\UART_Config.c
 .\objects\uart_config.o: ..\..\CODE\HDL\Include\UART_Config.h
+.\objects\uart_config.o: ..\..\CODE\HDL\Include\Hardware_drivers.h
 .\objects\uart_config.o: ..\..\CODE\HAL\CORE\Include\CMS32M55xx.h
 .\objects\uart_config.o: ..\..\CODE\HAL\FWLIB\inc\core_cm0.h
 .\objects\uart_config.o: D:\Tool\MDK\Core\ARM\ARMCC\Bin\..\include\stdint.h
@@ -25,3 +26,10 @@
 .\objects\uart_config.o: ..\..\CODE\HAL\FWLIB\inc\wdt.h
 .\objects\uart_config.o: ..\..\CODE\HAL\FWLIB\inc\wwdt.h
 .\objects\uart_config.o: ..\..\CODE\HAL\FWLIB\inc\fmc.h
+.\objects\uart_config.o: ..\..\CODE\HDL\Include\UART_Config.h
+.\objects\uart_config.o: ..\..\CODE\HDL\Include\System_Config.h
+.\objects\uart_config.o: ..\..\CODE\HDL\Include\Hardware_drivers.h
+.\objects\uart_config.o: ..\..\CODE\HDL\Include\EPWM_Config.h
+.\objects\uart_config.o: ..\..\CODE\HDL\Include\CCP_Config.h
+.\objects\uart_config.o: ..\..\CODE\HDL\Include\ADC_Config.h
+.\objects\uart_config.o: ..\..\CODE\HDL\Include\TIM_Config.h

@@ -273,7 +273,7 @@ void TIMER0_IRQHandler(void)
 ****************************************************************************/
 void TIMER1_IRQHandler(void)
 {
-	TIMER1_IRQHandler_Function();              
+//	TIMER1_IRQHandler_Function();              
 }
 
 

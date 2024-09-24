@@ -19,6 +19,10 @@
         "adc_config.h": "c",
         "system_config.h": "c",
         "adc1.h": "c",
-        "myproject.h": "c"
+        "myproject.h": "c",
+        "uart.h": "c",
+        "math.h": "c",
+        "stdio.h": "c",
+        "string.h": "c"
     }
 }

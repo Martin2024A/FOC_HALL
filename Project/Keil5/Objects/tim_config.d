@@ -1,5 +1,6 @@
 .\objects\tim_config.o: ..\..\CODE\HDL\Source\TIM_Config.c
 .\objects\tim_config.o: ..\..\CODE\HDL\Include\TIM_Config.h
+.\objects\tim_config.o: ..\..\CODE\HDL\Include\Hardware_drivers.h
 .\objects\tim_config.o: ..\..\CODE\HAL\CORE\Include\CMS32M55xx.h
 .\objects\tim_config.o: ..\..\CODE\HAL\FWLIB\inc\core_cm0.h
 .\objects\tim_config.o: D:\Tool\MDK\Core\ARM\ARMCC\Bin\..\include\stdint.h
@@ -25,3 +26,10 @@
 .\objects\tim_config.o: ..\..\CODE\HAL\FWLIB\inc\wdt.h
 .\objects\tim_config.o: ..\..\CODE\HAL\FWLIB\inc\wwdt.h
 .\objects\tim_config.o: ..\..\CODE\HAL\FWLIB\inc\fmc.h
+.\objects\tim_config.o: ..\..\CODE\HDL\Include\UART_Config.h
+.\objects\tim_config.o: ..\..\CODE\HDL\Include\Hardware_drivers.h
+.\objects\tim_config.o: ..\..\CODE\HDL\Include\System_Config.h
+.\objects\tim_config.o: ..\..\CODE\HDL\Include\EPWM_Config.h
+.\objects\tim_config.o: ..\..\CODE\HDL\Include\CCP_Config.h
+.\objects\tim_config.o: ..\..\CODE\HDL\Include\ADC_Config.h
+.\objects\tim_config.o: ..\..\CODE\HDL\Include\TIM_Config.h

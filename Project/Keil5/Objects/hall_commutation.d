@@ -1,5 +1,7 @@
 .\objects\hall_commutation.o: ..\..\CODE\FML\Source\Hall_Commutation.c
 .\objects\hall_commutation.o: ..\..\CODE\FML\Include\Hall_Commutation.h
+.\objects\hall_commutation.o: ..\..\CODE\FML\Include\FML_drivers.h
+.\objects\hall_commutation.o: ..\..\CODE\HDL\Include\Hardware_drivers.h
 .\objects\hall_commutation.o: ..\..\CODE\HAL\CORE\Include\CMS32M55xx.h
 .\objects\hall_commutation.o: ..\..\CODE\HAL\FWLIB\inc\core_cm0.h
 .\objects\hall_commutation.o: D:\Tool\MDK\Core\ARM\ARMCC\Bin\..\include\stdint.h
@@ -26,4 +28,15 @@
 .\objects\hall_commutation.o: ..\..\CODE\HAL\FWLIB\inc\wwdt.h
 .\objects\hall_commutation.o: ..\..\CODE\HAL\FWLIB\inc\fmc.h
 .\objects\hall_commutation.o: ..\..\CODE\HDL\Include\UART_Config.h
-.\objects\hall_commutation.o: D:\Tool\MDK\Core\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\hall_commutation.o: ..\..\CODE\HDL\Include\Hardware_drivers.h
+.\objects\hall_commutation.o: ..\..\CODE\HDL\Include\System_Config.h
+.\objects\hall_commutation.o: ..\..\CODE\HDL\Include\EPWM_Config.h
+.\objects\hall_commutation.o: ..\..\CODE\HDL\Include\CCP_Config.h
+.\objects\hall_commutation.o: ..\..\CODE\HDL\Include\ADC_Config.h
+.\objects\hall_commutation.o: ..\..\CODE\HDL\Include\TIM_Config.h
+.\objects\hall_commutation.o: ..\..\CODE\FML\Include\Motor_type.h
+.\objects\hall_commutation.o: ..\..\CODE\FML\Include\Motor_math.h
+.\objects\hall_commutation.o: ..\..\CODE\FML\Include\FML_drivers.h
+.\objects\hall_commutation.o: ..\..\CODE\FML\Include\Hall_Commutation.h
+.\objects\hall_commutation.o: ..\..\CODE\FML\Include\Motor_SVPWM.h
+.\objects\hall_commutation.o: ..\..\CODE\FML\Include\Motor_Control.h
