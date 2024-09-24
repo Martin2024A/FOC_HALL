@@ -19,8 +19,8 @@ extern "C"{
 #define T_SQRT3           ((PWM_PERIOD_CYCLE * SQRT3_FACTOR) /16384u)
 
 #define REP_RATE    1                       //电流环刷新频率为(REP_RATE+1)/(2*PWM_FREQ)
-#define DEADTIME_NS 1000                    //死区时间ns
-#define DEADTIME    CKTIM/1000000/2*DEADTIME_NS/1000
+#define DEADTIME_NS 600                    //死区时间ns
+#define DEADTIME   30 //630ns CKTIM/1000000/DEADTIME_NS/1000
 #define POLE_PAIR_NUM 4                     //极对数
 #define ICx_FILTER  8
 #define PERIOD      PWM_PERIOD
@@ -52,7 +52,7 @@ extern "C"{
 /*----------------------------------typedef-----------------------------------*/
 
 /*----------------------------------variable----------------------------------*/
-
+extern uint8_t bSector;
 
 /*-------------------------------------os-------------------------------------*/
 

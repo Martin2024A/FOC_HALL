@@ -8,6 +8,18 @@
 /*----------------------------------variable----------------------------------*/
 uint8_t bSector;
 int32_t Period = (int32_t)PWM_PERIOD_CYCLE;
+uint16_t SamplingPoint1,SamplingPoint2;
+#define TP 100 //2.2us
+#define PWMN 4800
+/*
+Tdead = 630ns (21ns*30)
+Ton  = 500ns
+TADCsh = 75ns
+Tring = 1us
+TADCtriggerdelay = 500ns
+
+Tp?=Tdead?+Ton?+TADCs/h?+max(Tring?,TADCtriggerdelay?)
+*/
 /*-------------------------------------os-------------------------------------*/
 
 /*----------------------------------function----------------------------------*/
@@ -22,7 +34,7 @@ int32_t Period = (int32_t)PWM_PERIOD_CYCLE;
   */
 void SVPWM_SetPhaseVoltage(Volt_Components Valfa_beta)
 {
-  int32_t wX, wY, wZ, wUAlpha, wUBeta, wTimePhA, wTimePhB, wTimePhC;
+  int32_t wX, wY, wZ, wUAlpha, wUBeta, wTimePhA, wTimePhB, wTimePhC,wTimePhA2,wTimePhB2, wTimePhC2;
 
 
   uint16_t hCntPhA,hCntPhB,hCntPhC;
@@ -72,9 +84,7 @@ void SVPWM_SetPhaseVoltage(Volt_Components Valfa_beta)
       wTimePhB = (int32_t)(Period)/4 - ((wY + wZ)/(int32_t)262144);
       wTimePhA = wTimePhB + wZ/131072;
       wTimePhC = wTimePhA + wY/131072;  
-        //       wTimePhA = 0;
-        // wTimePhB = 0;
-        // wTimePhC = 0;     
+
     }
     else /* wZ < 0 */
       if (wX<=0)
@@ -107,4 +117,9 @@ void SVPWM_SetPhaseVoltage(Volt_Components Valfa_beta)
 }
 
 
+
+void SimplePoint_Scan(uint16_t CCRMax,uint16_t CCRMid,uint16_t CCRMin)
+{
+  // if(CCRMid - CCRMin)
+}
 /*------------------------------------test------------------------------------*/

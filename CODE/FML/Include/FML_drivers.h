@@ -14,6 +14,7 @@ extern "C"{
 #include "Hall_Commutation.h"
 #include "Motor_SVPWM.h"
 #include "Motor_Control.h"
+#include "Motor_CurrentScan.c"
 /*-----------------------------------macro------------------------------------*/
 
 /*----------------------------------typedef-----------------------------------*/

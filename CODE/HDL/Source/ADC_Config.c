@@ -3,7 +3,7 @@
 /*-----------------------------------macro------------------------------------*/
 
 /*----------------------------------typedef-----------------------------------*/
-
+ADCData_TypeDef ADCData;
 /*----------------------------------variable----------------------------------*/
 
 /*-------------------------------------os-------------------------------------*/
@@ -15,7 +15,7 @@ void ADC_Init(void)
 	(1)设置ADC1时钟
 	*/
     SYS_EnablePeripheralClk(SYS_CLK_ADC1_MSK);
-	ADC1_ConfigRunMode(ADC1_CONVERT_CONTINUOUS,ADC1_CLK_DIV_8,ADC1_HOLD_10P5_CLK);			/*使能单通道转换*/
+	ADC1_ConfigRunMode(ADC1_CONVERT_CONTINUOUS,ADC1_CLK_DIV_1,ADC1_HOLD_3P5_CLK);			/*使能单通道转换*/
 
 	/*
 	(2)设置ADC1通道使能
@@ -49,4 +49,20 @@ void ADC_Init(void)
 	// */	
 	ADC1_EnableAdjust();
 }
+
+void ADCDataInit(void)
+{
+	ADCData.IBusOffset = 0;
+
+	ADCData.VoltageU = 0;
+	ADCData.VoltageV = 0;
+	ADCData.VoltageW = 0;
+	ADCData.VoltageBUS = 0;
+
+	ADCData.CurrentU = 0;
+	ADCData.CurrentV = 0;
+	ADCData.CurrentW = 0;
+	ADCData.CurrentBUS = 0;
+}
+
 /*------------------------------------test------------------------------------*/
