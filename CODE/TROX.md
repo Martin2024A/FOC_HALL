@@ -73,29 +73,29 @@
 ### 2.5用户设置
 * 锁屏时间（秒）
 * 屏保时间（秒）1000
-* 工作面风速0.50m/s
-* 节能面风速0.30m/s
-* 面风速容差0.03m/s
-* 风速报警比例12%
-* 最小风量220m3/h
-* 最大风量1500m3/h
-* 紧急风量700m/h
-* 夜间风量500m/h
-* 固定模式风量220m3/h
-* 门高上线报警500mm
-* 风量报警比例8%
-* 停机阀门开度25%
-* 辅助风机阈值800m3/h
+* 工作面风速0.50m/s![alt text](image-9.png)
+* 节能面风速0.30m/s![alt text](image-8.png)
+* 面风速容差0.03m/s![alt text](image-7.png)
+* 风速报警比例12%![alt text](image-5.png)
+* 最小风量220m3/h![alt text](image-4.png)
+* 最大风量1500m3/h![alt text](image-3.png)
+* 紧急风量700m/h![alt text](image-2.png)
+* 夜间风量500m/h![alt text](image-1.png)
+* 固定模式风量220m3/h![alt text](image-6.png)
+* 门高上线报警500mm![alt text](image-13.png)
+* 风量报警比例8%![alt text](image-12.png)
+* 停机阀门开度25%![alt text](image-10.png)
+* 辅助风机阈值800m3/h![alt text](image-11.png)
 
 ### 2.6 用户设置
-* 柜门宽度1500mm
+* 柜门宽度1500mm![alt text](image-14.png)
   
 ### 2.7 系统参数
-* 控制模式设置：位移传感器
-* 系统架构设置：独立控制
-* 启停方式设置：无需启停
+* 控制模式设置：位移传感器![alt text](image-16.png)
+* 系统架构设置：独立控制![alt text](image-15.png)
+* 启停方式设置：无需启停![alt text](image-17.png)
 * 警报时长（秒）：关闭
-* 设备地址：1（拨码）
+* 设备地址：1（拨码）![alt text](image-18.png)![alt text](image-19.png)
 
 ### 2.8 高级参数
 * PID-KP：600
@@ -104,7 +104,7 @@
 * PID-Period：35
 * PID-Out-Comp：12
 * PID-Ref-Comp：20
-
+![alt text](image-20.png)
 ### 2.9 系统标定
 * 门高10cm校准
 * 门高30cm校准
@@ -126,7 +126,7 @@
 ### 2.12 错误代码说明
 
 ### 2.13 系统参数备份还原
-
+>串口屏设置的参数保存，开机时重新向下位机写入？先写入再读取？
 
 
 
