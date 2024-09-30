@@ -1,10 +1,5 @@
 # BLDC FOC Control
 
-同步逻辑
-
-中断触发 位置传感器
-
-
 
 Position_IRn
     if(position1_flag_set)
